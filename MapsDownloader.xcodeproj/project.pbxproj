@@ -80,6 +80,7 @@
 		491F46572D65E17E00D3E631 /* MapsDownloader */ = {
 			isa = PBXGroup;
 			children = (
+				491F468B2D65EA4300D3E631 /* Shared API */,
 				491F46582D65E17E00D3E631 /* AppDelegate.swift */,
 				491F465A2D65E17E00D3E631 /* SceneDelegate.swift */,
 				491F465C2D65E17E00D3E631 /* ViewController.swift */,
@@ -106,6 +107,13 @@
 				491F46892D65E69C00D3E631 /* regions.xml */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		491F468B2D65EA4300D3E631 /* Shared API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Shared API";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
