@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		491F469F2D65ED8800D3E631 /* NetworkingService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 491F46962D65ED8700D3E631 /* NetworkingService.framework */; };
 		491F46A42D65ED8800D3E631 /* NetworkingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F46A32D65ED8800D3E631 /* NetworkingServiceTests.swift */; };
-		491F46A52D65ED8800D3E631 /* NetworkingService.h in Headers */ = {isa = PBXBuildFile; fileRef = 491F46992D65ED8700D3E631 /* NetworkingService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		491F46B22D65F47300D3E631 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F46B12D65F47300D3E631 /* HTTPClient.swift */; };
+		491F46B42D65F4B100D3E631 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F46B32D65F4B100D3E631 /* URLSessionHTTPClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,9 +25,10 @@
 
 /* Begin PBXFileReference section */
 		491F46962D65ED8700D3E631 /* NetworkingService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetworkingService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		491F46992D65ED8700D3E631 /* NetworkingService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkingService.h; sourceTree = "<group>"; };
 		491F469E2D65ED8800D3E631 /* NetworkingServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkingServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		491F46A32D65ED8800D3E631 /* NetworkingServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingServiceTests.swift; sourceTree = "<group>"; };
+		491F46B12D65F47300D3E631 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		491F46B32D65F4B100D3E631 /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +71,8 @@
 		491F46982D65ED8700D3E631 /* NetworkingService */ = {
 			isa = PBXGroup;
 			children = (
-				491F46992D65ED8700D3E631 /* NetworkingService.h */,
+				491F46B12D65F47300D3E631 /* HTTPClient.swift */,
+				491F46B32D65F4B100D3E631 /* URLSessionHTTPClient.swift */,
 			);
 			path = NetworkingService;
 			sourceTree = "<group>";
@@ -89,7 +92,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				491F46A52D65ED8800D3E631 /* NetworkingService.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +146,7 @@
 				TargetAttributes = {
 					491F46952D65ED8700D3E631 = {
 						CreatedOnToolsVersion = 15.3;
+						LastSwiftMigration = 1530;
 					};
 					491F469D2D65ED8800D3E631 = {
 						CreatedOnToolsVersion = 15.3;
@@ -191,6 +194,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				491F46B22D65F47300D3E631 /* HTTPClient.swift in Sources */,
+				491F46B42D65F4B100D3E631 /* URLSessionHTTPClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,10 +346,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 49W3F5WXE6;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -366,6 +371,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -374,10 +380,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 49W3F5WXE6;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -406,6 +412,7 @@
 		491F46AC2D65ED8800D3E631 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 49W3F5WXE6;
@@ -421,6 +428,7 @@
 		491F46AD2D65ED8800D3E631 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 49W3F5WXE6;
