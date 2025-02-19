@@ -14,6 +14,7 @@
 		491F46622D65E18100D3E631 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 491F46612D65E18100D3E631 /* Assets.xcassets */; };
 		491F46652D65E18100D3E631 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 491F46642D65E18100D3E631 /* Base */; };
 		491F46702D65E18200D3E631 /* MapsDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F466F2D65E18200D3E631 /* MapsDownloaderTests.swift */; };
+		491F468A2D65E69C00D3E631 /* regions.xml in Resources */ = {isa = PBXBuildFile; fileRef = 491F46892D65E69C00D3E631 /* regions.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,7 @@
 		491F46662D65E18100D3E631 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		491F466B2D65E18200D3E631 /* MapsDownloaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapsDownloaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		491F466F2D65E18200D3E631 /* MapsDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsDownloaderTests.swift; sourceTree = "<group>"; };
+		491F46892D65E69C00D3E631 /* regions.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = regions.xml; path = ../../../../../../Downloads/regions.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				491F46612D65E18100D3E631 /* Assets.xcassets */,
 				491F46632D65E18100D3E631 /* LaunchScreen.storyboard */,
 				491F46662D65E18100D3E631 /* Info.plist */,
+				491F46882D65E68200D3E631 /* Resources */,
 			);
 			path = MapsDownloader;
 			sourceTree = "<group>";
@@ -95,6 +98,14 @@
 				491F466F2D65E18200D3E631 /* MapsDownloaderTests.swift */,
 			);
 			path = MapsDownloaderTests;
+			sourceTree = "<group>";
+		};
+		491F46882D65E68200D3E631 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				491F46892D65E69C00D3E631 /* regions.xml */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				491F46622D65E18100D3E631 /* Assets.xcassets in Resources */,
+				491F468A2D65E69C00D3E631 /* regions.xml in Resources */,
 				491F46652D65E18100D3E631 /* Base in Resources */,
 				491F46602D65E17E00D3E631 /* Base in Resources */,
 			);
