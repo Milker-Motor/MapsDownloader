@@ -9,15 +9,16 @@
 /* Begin PBXBuildFile section */
 		491F46592D65E17E00D3E631 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F46582D65E17E00D3E631 /* AppDelegate.swift */; };
 		491F465B2D65E17E00D3E631 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F465A2D65E17E00D3E631 /* SceneDelegate.swift */; };
-		491F465D2D65E17E00D3E631 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F465C2D65E17E00D3E631 /* ViewController.swift */; };
-		491F46602D65E17E00D3E631 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 491F465F2D65E17E00D3E631 /* Base */; };
+		491F465D2D65E17E00D3E631 /* DownloadMapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F465C2D65E17E00D3E631 /* DownloadMapsViewController.swift */; };
 		491F46622D65E18100D3E631 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 491F46612D65E18100D3E631 /* Assets.xcassets */; };
 		491F46652D65E18100D3E631 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 491F46642D65E18100D3E631 /* Base */; };
-		491F46702D65E18200D3E631 /* MapsDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F466F2D65E18200D3E631 /* MapsDownloaderTests.swift */; };
+		491F46702D65E18200D3E631 /* MapsDownloaderUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F466F2D65E18200D3E631 /* MapsDownloaderUIIntegrationTests.swift */; };
 		491F468A2D65E69C00D3E631 /* regions.xml in Resources */ = {isa = PBXBuildFile; fileRef = 491F46892D65E69C00D3E631 /* regions.xml */; };
 		491F46B62D65FC4400D3E631 /* CombineHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F46B52D65FC4400D3E631 /* CombineHelpers.swift */; };
 		491F46BD2D65FD8F00D3E631 /* NetworkingService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 491F46BC2D65FD8F00D3E631 /* NetworkingService.framework */; };
 		491F46C02D6730F300D3E631 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F46BF2D6730F200D3E631 /* UIColor.swift */; };
+		491F46C22D67345400D3E631 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F46C12D67345400D3E631 /* XCTestCase+MemoryLeakTracking.swift */; };
+		491F46C42D67351800D3E631 /* DownloadMapsViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F46C32D67351800D3E631 /* DownloadMapsViewController+TestHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,17 +35,18 @@
 		491F46552D65E17E00D3E631 /* MapsDownloader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapsDownloader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		491F46582D65E17E00D3E631 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		491F465A2D65E17E00D3E631 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		491F465C2D65E17E00D3E631 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		491F465F2D65E17E00D3E631 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		491F465C2D65E17E00D3E631 /* DownloadMapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadMapsViewController.swift; sourceTree = "<group>"; };
 		491F46612D65E18100D3E631 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		491F46642D65E18100D3E631 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		491F46662D65E18100D3E631 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		491F466B2D65E18200D3E631 /* MapsDownloaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapsDownloaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		491F466F2D65E18200D3E631 /* MapsDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsDownloaderTests.swift; sourceTree = "<group>"; };
+		491F466F2D65E18200D3E631 /* MapsDownloaderUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsDownloaderUIIntegrationTests.swift; sourceTree = "<group>"; };
 		491F46892D65E69C00D3E631 /* regions.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = regions.xml; path = ../../../../../../Downloads/regions.xml; sourceTree = "<group>"; };
 		491F46B52D65FC4400D3E631 /* CombineHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineHelpers.swift; sourceTree = "<group>"; };
 		491F46BC2D65FD8F00D3E631 /* NetworkingService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NetworkingService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		491F46BF2D6730F200D3E631 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		491F46C12D67345400D3E631 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
+		491F46C32D67351800D3E631 /* DownloadMapsViewController+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DownloadMapsViewController+TestHelpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,10 +92,9 @@
 			children = (
 				491F46582D65E17E00D3E631 /* AppDelegate.swift */,
 				491F465A2D65E17E00D3E631 /* SceneDelegate.swift */,
-				491F465C2D65E17E00D3E631 /* ViewController.swift */,
+				491F465C2D65E17E00D3E631 /* DownloadMapsViewController.swift */,
 				491F46B52D65FC4400D3E631 /* CombineHelpers.swift */,
 				491F46BF2D6730F200D3E631 /* UIColor.swift */,
-				491F465E2D65E17E00D3E631 /* Main.storyboard */,
 				491F46612D65E18100D3E631 /* Assets.xcassets */,
 				491F46632D65E18100D3E631 /* LaunchScreen.storyboard */,
 				491F46662D65E18100D3E631 /* Info.plist */,
@@ -105,7 +106,9 @@
 		491F466E2D65E18200D3E631 /* MapsDownloaderTests */ = {
 			isa = PBXGroup;
 			children = (
-				491F466F2D65E18200D3E631 /* MapsDownloaderTests.swift */,
+				491F466F2D65E18200D3E631 /* MapsDownloaderUIIntegrationTests.swift */,
+				491F46C12D67345400D3E631 /* XCTestCase+MemoryLeakTracking.swift */,
+				491F46C32D67351800D3E631 /* DownloadMapsViewController+TestHelpers.swift */,
 			);
 			path = MapsDownloaderTests;
 			sourceTree = "<group>";
@@ -210,7 +213,6 @@
 				491F46622D65E18100D3E631 /* Assets.xcassets in Resources */,
 				491F468A2D65E69C00D3E631 /* regions.xml in Resources */,
 				491F46652D65E18100D3E631 /* Base in Resources */,
-				491F46602D65E17E00D3E631 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,7 +230,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				491F465D2D65E17E00D3E631 /* ViewController.swift in Sources */,
+				491F465D2D65E17E00D3E631 /* DownloadMapsViewController.swift in Sources */,
 				491F46592D65E17E00D3E631 /* AppDelegate.swift in Sources */,
 				491F465B2D65E17E00D3E631 /* SceneDelegate.swift in Sources */,
 				491F46B62D65FC4400D3E631 /* CombineHelpers.swift in Sources */,
@@ -240,7 +242,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				491F46702D65E18200D3E631 /* MapsDownloaderTests.swift in Sources */,
+				491F46702D65E18200D3E631 /* MapsDownloaderUIIntegrationTests.swift in Sources */,
+				491F46C42D67351800D3E631 /* DownloadMapsViewController+TestHelpers.swift in Sources */,
+				491F46C22D67345400D3E631 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,14 +259,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		491F465E2D65E17E00D3E631 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				491F465F2D65E17E00D3E631 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		491F46632D65E18100D3E631 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -405,9 +401,8 @@
 				INFOPLIST_FILE = MapsDownloader/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -437,9 +432,8 @@
 				INFOPLIST_FILE = MapsDownloader/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
