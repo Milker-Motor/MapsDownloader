@@ -22,19 +22,38 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func configureWindow() {
         window?.rootViewController = UINavigationController(
             
-            rootViewController: DownloadMapsComposer.makeDownloadMapsViewController()
+            rootViewController: DownloadMapsComposer.mapsComposedWith(mapsLoader: LocalMapsLoader())
         )
         window?.makeKeyAndVisible()
     }
+}
+
+public class LocalMapsLoader {
     
+}
+
+extension LocalMapsLoader: MapsLoader {
+    public func load(completion: @escaping (MapsLoader.Result) -> Void) {
+        
+    }
     
 }
 
 public final class DownloadMapsComposer {
-    public static func makeDownloadMapsViewController() -> DownloadMapsViewController {
+    public static func mapsComposedWith(mapsLoader: MapsLoader) -> DownloadMapsViewController {
+
+        let presentationAdapter = MapsLoaderPresentationAdapter(mapsLoader: mapsLoader)
+        
+        let mapsController = makeDownloadMapsViewController(delegate: presentationAdapter)
+    
+        return mapsController
+    }
+    
+    private static func makeDownloadMapsViewController(delegate: DownloadMapsViewControllerDelegate) -> DownloadMapsViewController {
         let downloadMapsViewController = DownloadMapsViewController()
         
         downloadMapsViewController.title = DownloadMapsPresenter.title
+        downloadMapsViewController.delegate = delegate
         
         return downloadMapsViewController
     }

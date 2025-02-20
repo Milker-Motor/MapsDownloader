@@ -10,20 +10,40 @@ import MapsDownloader
 
 final class MapsDownloaderUIIntegrationTests: XCTestCase {
     func test_mapsDownloaderView_hasTitle() {
-        let sut = makeSUT()
+        let (sut, _) = makeSUT()
         
         sut.simulateAppearance()
         
         XCTAssertEqual(sut.title, "Download Maps")
     }
     
-    // MARK: - Helpers
+    func test_loadMapsList_requestMapsFromLoader() {
+        let (sut, loader) = makeSUT()
+
+        XCTAssertEqual(loader.loadMapsCallCount, 0, "Expected no loading requests before view is loaded")
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> DownloadMapsViewController {
-        let sut = DownloadMapsComposer.makeDownloadMapsViewController()
+        sut.simulateAppearance()
+        XCTAssertEqual(loader.loadMapsCallCount, 1, "Expected a loading request once view is loaded")
+    }
+    
+    // MARK: - Helpersx
+    
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: DownloadMapsViewController, loader: LoaderSpy) {
+        let loader = LoaderSpy()
+        let sut = DownloadMapsComposer.mapsComposedWith(mapsLoader: loader)
         
         trackForMemoryLeaks(sut, file: file, line: line)
+        trackForMemoryLeaks(loader, file: file, line: line)
         
-        return sut
+        return (sut, loader)
+    }
+}
+
+class LoaderSpy: MapsLoader {
+    
+    var loadMapsCallCount: Int = 0
+    
+    func load(completion: @escaping (MapsLoader.Result) -> Void) {
+        loadMapsCallCount += 1
     }
 }

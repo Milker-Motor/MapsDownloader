@@ -19,6 +19,8 @@
 		491F46C02D6730F300D3E631 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F46BF2D6730F200D3E631 /* UIColor.swift */; };
 		491F46C22D67345400D3E631 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F46C12D67345400D3E631 /* XCTestCase+MemoryLeakTracking.swift */; };
 		491F46C42D67351800D3E631 /* DownloadMapsViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F46C32D67351800D3E631 /* DownloadMapsViewController+TestHelpers.swift */; };
+		493296882D6749E6003D8397 /* MapsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296872D6749E6003D8397 /* MapsLoader.swift */; };
+		4932968A2D674CD6003D8397 /* MapsLoaderPresentationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296892D674CD6003D8397 /* MapsLoaderPresentationAdapter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		491F46BF2D6730F200D3E631 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		491F46C12D67345400D3E631 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		491F46C32D67351800D3E631 /* DownloadMapsViewController+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DownloadMapsViewController+TestHelpers.swift"; sourceTree = "<group>"; };
+		493296872D6749E6003D8397 /* MapsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsLoader.swift; sourceTree = "<group>"; };
+		493296892D674CD6003D8397 /* MapsLoaderPresentationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsLoaderPresentationAdapter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,7 @@
 				491F465C2D65E17E00D3E631 /* DownloadMapsViewController.swift */,
 				491F46B52D65FC4400D3E631 /* CombineHelpers.swift */,
 				491F46BF2D6730F200D3E631 /* UIColor.swift */,
+				493296862D6749CC003D8397 /* Maps Feature */,
 				491F46612D65E18100D3E631 /* Assets.xcassets */,
 				491F46632D65E18100D3E631 /* LaunchScreen.storyboard */,
 				491F46662D65E18100D3E631 /* Info.plist */,
@@ -127,6 +132,15 @@
 				491F46BC2D65FD8F00D3E631 /* NetworkingService.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		493296862D6749CC003D8397 /* Maps Feature */ = {
+			isa = PBXGroup;
+			children = (
+				493296872D6749E6003D8397 /* MapsLoader.swift */,
+				493296892D674CD6003D8397 /* MapsLoaderPresentationAdapter.swift */,
+			);
+			path = "Maps Feature";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +249,8 @@
 				491F465B2D65E17E00D3E631 /* SceneDelegate.swift in Sources */,
 				491F46B62D65FC4400D3E631 /* CombineHelpers.swift in Sources */,
 				491F46C02D6730F300D3E631 /* UIColor.swift in Sources */,
+				493296882D6749E6003D8397 /* MapsLoader.swift in Sources */,
+				4932968A2D674CD6003D8397 /* MapsLoaderPresentationAdapter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

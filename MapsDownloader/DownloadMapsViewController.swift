@@ -7,7 +7,12 @@
 
 import UIKit
 
+public protocol DownloadMapsViewControllerDelegate {
+    func didRequestMapsLoad()
+}
+
 public final class DownloadMapsViewController: UIViewController {
+    public var delegate: DownloadMapsViewControllerDelegate?
     public override var title: String? {
         get { titleLabel.text }
         set { titleLabel.text = newValue }
@@ -33,6 +38,8 @@ public final class DownloadMapsViewController: UIViewController {
         return label
     }()
     
+    private var onViewIsAppearing: ((DownloadMapsViewController) -> Void)? = nil
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,6 +47,17 @@ public final class DownloadMapsViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         
         setupUI()
+        
+        onViewIsAppearing = { vc in
+            vc.refresh()
+            vc.onViewIsAppearing = nil
+        }
+    }
+    
+    public override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+        
+        onViewIsAppearing?(self)
     }
     
     private func setupUI() {
@@ -55,5 +73,9 @@ public final class DownloadMapsViewController: UIViewController {
             titleLabel.bottomAnchor.constraint(equalTo: topBanner.bottomAnchor, constant: -10),
             titleLabel.leadingAnchor.constraint(equalTo: topBanner.leadingAnchor, constant: 16)
         ])
+    }
+    
+    private func refresh() {
+        delegate?.didRequestMapsLoad()
     }
 }
