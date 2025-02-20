@@ -17,6 +17,7 @@
 		491F468A2D65E69C00D3E631 /* regions.xml in Resources */ = {isa = PBXBuildFile; fileRef = 491F46892D65E69C00D3E631 /* regions.xml */; };
 		491F46B62D65FC4400D3E631 /* CombineHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F46B52D65FC4400D3E631 /* CombineHelpers.swift */; };
 		491F46BD2D65FD8F00D3E631 /* NetworkingService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 491F46BC2D65FD8F00D3E631 /* NetworkingService.framework */; };
+		491F46C02D6730F300D3E631 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F46BF2D6730F200D3E631 /* UIColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		491F46892D65E69C00D3E631 /* regions.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = regions.xml; path = ../../../../../../Downloads/regions.xml; sourceTree = "<group>"; };
 		491F46B52D65FC4400D3E631 /* CombineHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineHelpers.swift; sourceTree = "<group>"; };
 		491F46BC2D65FD8F00D3E631 /* NetworkingService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NetworkingService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		491F46BF2D6730F200D3E631 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 				491F465A2D65E17E00D3E631 /* SceneDelegate.swift */,
 				491F465C2D65E17E00D3E631 /* ViewController.swift */,
 				491F46B52D65FC4400D3E631 /* CombineHelpers.swift */,
+				491F46BF2D6730F200D3E631 /* UIColor.swift */,
 				491F465E2D65E17E00D3E631 /* Main.storyboard */,
 				491F46612D65E18100D3E631 /* Assets.xcassets */,
 				491F46632D65E18100D3E631 /* LaunchScreen.storyboard */,
@@ -229,6 +232,7 @@
 				491F46592D65E17E00D3E631 /* AppDelegate.swift in Sources */,
 				491F465B2D65E17E00D3E631 /* SceneDelegate.swift in Sources */,
 				491F46B62D65FC4400D3E631 /* CombineHelpers.swift in Sources */,
+				491F46C02D6730F300D3E631 /* UIColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
