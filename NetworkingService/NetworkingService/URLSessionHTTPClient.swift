@@ -19,6 +19,10 @@ public final class URLSessionHTTPClient: HTTPClient {
     private struct URLSessionTaskWrapper: HTTPClientTask {
         let wrapped: URLSessionTask
         
+        var progress: Progress {
+            wrapped.progress
+        }
+        
         func cancel() {
             wrapped.cancel()
         }

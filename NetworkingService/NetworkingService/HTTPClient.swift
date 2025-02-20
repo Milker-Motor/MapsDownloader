@@ -8,6 +8,7 @@
 import Foundation
 
 public protocol HTTPClientTask {
+    var progress: Progress { get }
     func cancel()
 }
 

@@ -15,6 +15,8 @@
 		491F46652D65E18100D3E631 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 491F46642D65E18100D3E631 /* Base */; };
 		491F46702D65E18200D3E631 /* MapsDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F466F2D65E18200D3E631 /* MapsDownloaderTests.swift */; };
 		491F468A2D65E69C00D3E631 /* regions.xml in Resources */ = {isa = PBXBuildFile; fileRef = 491F46892D65E69C00D3E631 /* regions.xml */; };
+		491F46B62D65FC4400D3E631 /* CombineHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F46B52D65FC4400D3E631 /* CombineHelpers.swift */; };
+		491F46BD2D65FD8F00D3E631 /* NetworkingService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 491F46BC2D65FD8F00D3E631 /* NetworkingService.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +41,8 @@
 		491F466B2D65E18200D3E631 /* MapsDownloaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapsDownloaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		491F466F2D65E18200D3E631 /* MapsDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsDownloaderTests.swift; sourceTree = "<group>"; };
 		491F46892D65E69C00D3E631 /* regions.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = regions.xml; path = ../../../../../../Downloads/regions.xml; sourceTree = "<group>"; };
+		491F46B52D65FC4400D3E631 /* CombineHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineHelpers.swift; sourceTree = "<group>"; };
+		491F46BC2D65FD8F00D3E631 /* NetworkingService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NetworkingService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				491F46BD2D65FD8F00D3E631 /* NetworkingService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 				491F46572D65E17E00D3E631 /* MapsDownloader */,
 				491F466E2D65E18200D3E631 /* MapsDownloaderTests */,
 				491F46562D65E17E00D3E631 /* Products */,
+				491F46B72D65FC8A00D3E631 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,10 +86,10 @@
 		491F46572D65E17E00D3E631 /* MapsDownloader */ = {
 			isa = PBXGroup;
 			children = (
-				491F468B2D65EA4300D3E631 /* Shared API */,
 				491F46582D65E17E00D3E631 /* AppDelegate.swift */,
 				491F465A2D65E17E00D3E631 /* SceneDelegate.swift */,
 				491F465C2D65E17E00D3E631 /* ViewController.swift */,
+				491F46B52D65FC4400D3E631 /* CombineHelpers.swift */,
 				491F465E2D65E17E00D3E631 /* Main.storyboard */,
 				491F46612D65E18100D3E631 /* Assets.xcassets */,
 				491F46632D65E18100D3E631 /* LaunchScreen.storyboard */,
@@ -109,11 +115,12 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		491F468B2D65EA4300D3E631 /* Shared API */ = {
+		491F46B72D65FC8A00D3E631 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				491F46BC2D65FD8F00D3E631 /* NetworkingService.framework */,
 			);
-			path = "Shared API";
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +228,7 @@
 				491F465D2D65E17E00D3E631 /* ViewController.swift in Sources */,
 				491F46592D65E17E00D3E631 /* AppDelegate.swift in Sources */,
 				491F465B2D65E17E00D3E631 /* SceneDelegate.swift in Sources */,
+				491F46B62D65FC4400D3E631 /* CombineHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,9 +411,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "oleksii.lytvynov-bohdanov.MapsDownloader";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -431,9 +443,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "oleksii.lytvynov-bohdanov.MapsDownloader";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
