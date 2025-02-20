@@ -18,8 +18,9 @@ final class MapsLoaderPresentationAdapter {
 
 extension MapsLoaderPresentationAdapter: DownloadMapsViewControllerDelegate {
     func didRequestMapsLoad() {
-        mapsLoader.load { result in
-            
+        presenter?.didStartLoadingMaps()
+        mapsLoader.load { [weak presenter] result in
+            presenter?.didFinishLoadingMaps()
         }
     }
 }

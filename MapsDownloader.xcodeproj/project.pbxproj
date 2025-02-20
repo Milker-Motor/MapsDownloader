@@ -21,6 +21,7 @@
 		491F46C42D67351800D3E631 /* DownloadMapsViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F46C32D67351800D3E631 /* DownloadMapsViewController+TestHelpers.swift */; };
 		493296882D6749E6003D8397 /* MapsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296872D6749E6003D8397 /* MapsLoader.swift */; };
 		4932968A2D674CD6003D8397 /* MapsLoaderPresentationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296892D674CD6003D8397 /* MapsLoaderPresentationAdapter.swift */; };
+		4932968C2D67529C003D8397 /* MapsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4932968B2D67529C003D8397 /* MapsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		491F46C32D67351800D3E631 /* DownloadMapsViewController+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DownloadMapsViewController+TestHelpers.swift"; sourceTree = "<group>"; };
 		493296872D6749E6003D8397 /* MapsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsLoader.swift; sourceTree = "<group>"; };
 		493296892D674CD6003D8397 /* MapsLoaderPresentationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsLoaderPresentationAdapter.swift; sourceTree = "<group>"; };
+		4932968B2D67529C003D8397 /* MapsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				491F46582D65E17E00D3E631 /* AppDelegate.swift */,
 				491F465A2D65E17E00D3E631 /* SceneDelegate.swift */,
 				491F465C2D65E17E00D3E631 /* DownloadMapsViewController.swift */,
+				4932968B2D67529C003D8397 /* MapsTableViewController.swift */,
 				491F46B52D65FC4400D3E631 /* CombineHelpers.swift */,
 				491F46BF2D6730F200D3E631 /* UIColor.swift */,
 				493296862D6749CC003D8397 /* Maps Feature */,
@@ -244,6 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4932968C2D67529C003D8397 /* MapsTableViewController.swift in Sources */,
 				491F465D2D65E17E00D3E631 /* DownloadMapsViewController.swift in Sources */,
 				491F46592D65E17E00D3E631 /* AppDelegate.swift in Sources */,
 				491F465B2D65E17E00D3E631 /* SceneDelegate.swift in Sources */,

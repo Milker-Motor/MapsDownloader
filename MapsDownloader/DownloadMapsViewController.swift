@@ -38,6 +38,12 @@ public final class DownloadMapsViewController: UIViewController {
         return label
     }()
     
+    public var refreshControl: UIRefreshControl? {
+        get { mapsController.refreshControl }
+        set { mapsController.refreshControl = newValue }
+    }
+    private lazy var mapsController = MapsTableViewController()
+    
     private var onViewIsAppearing: ((DownloadMapsViewController) -> Void)? = nil
     
     override public func viewDidLoad() {
@@ -63,6 +69,7 @@ public final class DownloadMapsViewController: UIViewController {
     private func setupUI() {
         view.addSubview(topBanner)
         topBanner.addSubview(titleLabel)
+        view.addSubview(mapsController.tableView)
         
         NSLayoutConstraint.activate([
             topBanner.topAnchor.constraint(equalTo: view.topAnchor),
@@ -71,11 +78,22 @@ public final class DownloadMapsViewController: UIViewController {
             topBanner.heightAnchor.constraint(equalToConstant: 120),
             
             titleLabel.bottomAnchor.constraint(equalTo: topBanner.bottomAnchor, constant: -10),
-            titleLabel.leadingAnchor.constraint(equalTo: topBanner.leadingAnchor, constant: 16)
+            titleLabel.leadingAnchor.constraint(equalTo: topBanner.leadingAnchor, constant: 16),
+            
+            topBanner.bottomAnchor.constraint(equalTo: mapsController.tableView.topAnchor),
+            mapsController.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mapsController.tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            mapsController.tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
     private func refresh() {
         delegate?.didRequestMapsLoad()
+    }
+}
+
+extension DownloadMapsViewController: MapsLoadingView {
+    public func display(_ viewModel: MapsLoadingViewModel) {
+        viewModel.isLoading ? refreshControl?.beginRefreshing() : refreshControl?.endRefreshing()
     }
 }

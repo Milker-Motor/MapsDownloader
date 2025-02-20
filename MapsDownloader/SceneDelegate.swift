@@ -44,7 +44,9 @@ public final class DownloadMapsComposer {
 
         let presentationAdapter = MapsLoaderPresentationAdapter(mapsLoader: mapsLoader)
         
+        
         let mapsController = makeDownloadMapsViewController(delegate: presentationAdapter)
+        presentationAdapter.presenter = DownloadMapsPresenter(loadingView: WeakRefVirtualProxy(mapsController))
     
         return mapsController
     }
@@ -60,5 +62,41 @@ public final class DownloadMapsComposer {
 }
 
 public final class DownloadMapsPresenter {
+    private let loadingView: MapsLoadingView
+    
     public static var title: String { "Download Maps" }
+    
+    public init(loadingView: MapsLoadingView) {
+        self.loadingView = loadingView
+    }
+    
+    public func didStartLoadingMaps() {
+        loadingView.display(MapsLoadingViewModel(isLoading: true))
+    }
+    
+    public func didFinishLoadingMaps() {
+        loadingView.display(MapsLoadingViewModel(isLoading: false))
+    }
+}
+
+public protocol MapsLoadingView {
+    func display(_ viewModel: MapsLoadingViewModel)
+}
+
+public struct MapsLoadingViewModel {
+    public let isLoading: Bool
+}
+
+final class WeakRefVirtualProxy<T: AnyObject> {
+    private weak var object: T?
+    
+    init(_ object: T) {
+        self.object = object
+    }
+}
+
+extension WeakRefVirtualProxy: MapsLoadingView where T: MapsLoadingView {
+    func display(_ viewModel: MapsLoadingViewModel) {
+        object?.display(viewModel)
+    }
 }
