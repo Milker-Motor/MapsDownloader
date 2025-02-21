@@ -11,5 +11,6 @@ final class MapsDetailTableViewController: MapsTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.register(MapTableViewCell.self)
     }
 }

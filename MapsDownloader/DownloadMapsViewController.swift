@@ -139,16 +139,16 @@ extension DownloadMapsViewController: MapsErrorView {
 }
 
 final class MapViewAdapter: MapView {
-    private weak var controller: DownloadMapsViewController?
+    private weak var controller: MapsTableViewController?
     private let selection: (Map) -> Void
     
-    init(controller: DownloadMapsViewController, selection: @escaping (Map) -> Void) {
+    init(controller: MapsTableViewController, selection: @escaping (Map) -> Void) {
         self.controller = controller
         self.selection = selection
     }
     
     public func display(_ viewModel: MapsViewModel) {
-        controller?.mapsController.display(viewModel.maps.map { viewModel in
+        controller?.display(viewModel.maps.map { viewModel in
             CellController(id: viewModel, MapCellController(model: viewModel, selection: selection))
         })
     }

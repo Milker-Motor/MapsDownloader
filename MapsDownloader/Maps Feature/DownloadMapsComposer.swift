@@ -8,8 +8,12 @@
 import Foundation
 
 public final class DownloadMapsComposer {
-    static func mapsDetail() -> MapsDetailTableViewController {
-        MapsDetailTableViewController()
+    static func mapsDetail(with maps: [Map]) -> MapsDetailTableViewController {
+        let mapsController = MapsDetailTableViewController()
+        let viewAdapter = MapViewAdapter(controller: mapsController, selection: { _ in })
+        viewAdapter.display(MapsViewModel(maps: maps))
+        
+        return mapsController
     }
     
     public static func mapsComposedWith(mapsLoader: MapsLoader, selection: @escaping (Map) -> Void = { _ in } ) -> DownloadMapsViewController {
@@ -18,7 +22,7 @@ public final class DownloadMapsComposer {
         let mapsController = makeDownloadMapsViewController(delegate: presentationAdapter)
         
         presentationAdapter.presenter = DownloadMapsPresenter(
-            mapView: MapViewAdapter(controller: mapsController, selection: selection),
+            mapView: MapViewAdapter(controller: mapsController.mapsController, selection: selection),
             loadingView: WeakRefVirtualProxy(mapsController),
             errorView: WeakRefVirtualProxy(mapsController))
     

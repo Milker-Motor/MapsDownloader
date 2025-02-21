@@ -43,7 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func showMaps(for map: Map) {
 //        let existedMaps = ExistedMaps(maps: map.maps)
-        let maps = DownloadMapsComposer.mapsDetail()
+        let maps = DownloadMapsComposer.mapsDetail(with: map.maps)
         maps.title = map.name
         navigationController.pushViewController(maps, animated: true)
 //        maps.display(<#T##sections: [CellController]...##[CellController]#>)
