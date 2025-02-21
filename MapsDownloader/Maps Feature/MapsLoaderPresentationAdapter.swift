@@ -20,7 +20,13 @@ extension MapsLoaderPresentationAdapter: DownloadMapsViewControllerDelegate {
     func didRequestMapsLoad() {
         presenter?.didStartLoadingMaps()
         mapsLoader.load { [weak presenter] result in
-            presenter?.didFinishLoadingMaps()
+            switch result {
+            case let .success(maps):
+                presenter?.didFinishLoadingMaps(with: maps)
+                
+            case let .failure(error):
+                presenter?.didFinishLoadingMaps(with: error)
+            }
         }
     }
 }

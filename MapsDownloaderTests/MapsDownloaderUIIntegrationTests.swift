@@ -36,6 +36,22 @@ final class MapsDownloaderUIIntegrationTests: XCTestCase {
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading completes")
     }
     
+    func test_loadMapsCompletion_rendersSuccessfullyLoadedMaps() {
+        let map0 = makeMap(name: "Albania")
+        let map1 = makeMap(name: "Latvia")
+        let map2 = makeMap(name: "Norway")
+        let map3 = makeMap(name: "Sweden")
+        
+        let (sut, loader) = makeSUT()
+        
+        sut.simulateAppearance()
+        assertThat(sut, isRendering: [])
+        
+        loader.completeMapsLoading(with: [map0, map1, map2, map3], at: 0)
+        assertThat(sut, isRendering: [map0, map1, map2, map3])
+    }
+    
+    
     // MARK: - Helpersx
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: DownloadMapsViewController, loader: LoaderSpy) {
@@ -46,6 +62,33 @@ final class MapsDownloaderUIIntegrationTests: XCTestCase {
         trackForMemoryLeaks(loader, file: file, line: line)
         
         return (sut, loader)
+    }
+    
+    func makeMap(name: String) -> Map {
+        Map(name: name)
+    }
+    
+    func assertThat(_ sut: DownloadMapsViewController, isRendering maps: [Map], file: StaticString = #file, line: UInt = #line) {
+        sut.view.enforceLayoutCycle()
+        
+        guard sut.numberOfRenderedMapsViews == maps.count else {
+            return XCTFail("Expected \(maps.count) maps, got \(sut.numberOfRenderedMapsViews) instead.", file: file, line: line)
+        }
+        
+        maps.enumerated().forEach { index, map in
+            assertThat(sut, hasViewConfiguredFor: map, at: index, file: file, line: line)
+        }
+    }
+    
+    func assertThat(_ sut: DownloadMapsViewController, hasViewConfiguredFor map: Map, at index: Int, file: StaticString = #file, line: UInt = #line) {
+        let view = sut.mapView(at: index)
+        
+        guard let cell = view as? MapTableViewCell, let contentConfig = cell.contentConfiguration as? UIListContentConfiguration else {
+            return XCTFail("Expected \(MapTableViewCell.self) instance, got \(String(describing: view)) instead", file: file, line: line)
+        }
+        
+        XCTAssertEqual(contentConfig.text, map.name, "Expected `name` to be \(map.name) for map at index (\(index)), got \(String(describing: contentConfig.text))", file: file, line: line)
+        
     }
 }
 

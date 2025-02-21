@@ -34,49 +34,17 @@ public class LocalMapsLoader {
 
 extension LocalMapsLoader: MapsLoader {
     public func load(completion: @escaping (MapsLoader.Result) -> Void) {
-        
+        completion(.success([Map(name: "1"), Map(name: "12"), Map(name: "13")]))
     }
     
 }
 
-public final class DownloadMapsComposer {
-    public static func mapsComposedWith(mapsLoader: MapsLoader) -> DownloadMapsViewController {
-
-        let presentationAdapter = MapsLoaderPresentationAdapter(mapsLoader: mapsLoader)
-        
-        
-        let mapsController = makeDownloadMapsViewController(delegate: presentationAdapter)
-        presentationAdapter.presenter = DownloadMapsPresenter(loadingView: WeakRefVirtualProxy(mapsController))
-    
-        return mapsController
-    }
-    
-    private static func makeDownloadMapsViewController(delegate: DownloadMapsViewControllerDelegate) -> DownloadMapsViewController {
-        let downloadMapsViewController = DownloadMapsViewController()
-        
-        downloadMapsViewController.title = DownloadMapsPresenter.title
-        downloadMapsViewController.delegate = delegate
-        
-        return downloadMapsViewController
-    }
+public protocol MapsErrorView {
+    func display(_ viewModel: MapsErrorViewModel)
 }
 
-public final class DownloadMapsPresenter {
-    private let loadingView: MapsLoadingView
-    
-    public static var title: String { "Download Maps" }
-    
-    public init(loadingView: MapsLoadingView) {
-        self.loadingView = loadingView
-    }
-    
-    public func didStartLoadingMaps() {
-        loadingView.display(MapsLoadingViewModel(isLoading: true))
-    }
-    
-    public func didFinishLoadingMaps() {
-        loadingView.display(MapsLoadingViewModel(isLoading: false))
-    }
+public struct MapsErrorViewModel {
+    public let text: String
 }
 
 public protocol MapsLoadingView {
@@ -85,6 +53,14 @@ public protocol MapsLoadingView {
 
 public struct MapsLoadingViewModel {
     public let isLoading: Bool
+}
+
+public protocol MapView {
+    func display(_ viewModel: MapsViewModel)
+}
+
+public struct MapsViewModel {
+    let maps: [Map]
 }
 
 final class WeakRefVirtualProxy<T: AnyObject> {
@@ -97,6 +73,18 @@ final class WeakRefVirtualProxy<T: AnyObject> {
 
 extension WeakRefVirtualProxy: MapsLoadingView where T: MapsLoadingView {
     func display(_ viewModel: MapsLoadingViewModel) {
+        object?.display(viewModel)
+    }
+}
+
+extension WeakRefVirtualProxy: MapsErrorView where T: MapsErrorView {
+    func display(_ viewModel: MapsErrorViewModel) {
+        object?.display(viewModel)
+    }
+}
+
+extension WeakRefVirtualProxy: MapView where T: MapView {
+    func display(_ viewModel: MapsViewModel) {
         object?.display(viewModel)
     }
 }

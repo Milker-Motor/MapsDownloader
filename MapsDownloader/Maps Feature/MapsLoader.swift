@@ -7,8 +7,12 @@
 
 import Foundation
 
-public struct Map {
+public struct Map: Hashable {
+    public let name: String
     
+    public init(name: String) {
+        self.name = name
+    }
 }
 
 public protocol MapsLoader {

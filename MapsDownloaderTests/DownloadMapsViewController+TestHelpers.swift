@@ -32,6 +32,21 @@ extension DownloadMapsViewController {
         
         refreshControl = fakeRefreshController
     }
+    
+    var numberOfRenderedMapsViews: Int {
+        
+        tableView.numberOfRows(inSection: mapsSection)
+    }
+    
+    func mapView(at row: Int) -> UITableViewCell? {
+        guard numberOfRenderedMapsViews > row else { return nil }
+        let ds = tableView.dataSource
+        let index = IndexPath(row: row, section: mapsSection)
+
+        return ds?.tableView(tableView, cellForRowAt: index)
+    }
+    
+    private var mapsSection: Int { 0 }
 }
 
 private final class FakeRefreshControl: UIRefreshControl {

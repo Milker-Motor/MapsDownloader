@@ -12,6 +12,7 @@ public protocol DownloadMapsViewControllerDelegate {
 }
 
 public final class DownloadMapsViewController: UIViewController {
+    
     public var delegate: DownloadMapsViewControllerDelegate?
     public override var title: String? {
         get { titleLabel.text }
@@ -37,13 +38,16 @@ public final class DownloadMapsViewController: UIViewController {
         
         return label
     }()
-    
+        
     public var refreshControl: UIRefreshControl? {
         get { mapsController.refreshControl }
         set { mapsController.refreshControl = newValue }
     }
     private lazy var mapsController = MapsTableViewController()
     
+    public var tableView: UITableView {
+        mapsController.tableView
+    }
     private var onViewIsAppearing: ((DownloadMapsViewController) -> Void)? = nil
     
     override public func viewDidLoad() {
@@ -85,6 +89,8 @@ public final class DownloadMapsViewController: UIViewController {
             mapsController.tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             mapsController.tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        tableView.register(MapTableViewCell.self)
     }
     
     private func refresh() {
@@ -95,5 +101,65 @@ public final class DownloadMapsViewController: UIViewController {
 extension DownloadMapsViewController: MapsLoadingView {
     public func display(_ viewModel: MapsLoadingViewModel) {
         viewModel.isLoading ? refreshControl?.beginRefreshing() : refreshControl?.endRefreshing()
+    }
+}
+
+extension DownloadMapsViewController: MapsErrorView {
+    public func display(_ viewModel: MapsErrorViewModel) {
+        let alertController = UIAlertController(title: "Error", message: viewModel.text, preferredStyle: .alert)
+        present(alertController, animated: true)
+    }
+}
+
+extension DownloadMapsViewController: MapView {
+    public func display(_ viewModel: MapsViewModel) {
+        mapsController.display(viewModel.maps.map { viewModel in
+            CellController(id: viewModel, MapCellController(model: viewModel))
+        })
+    }
+}
+
+public class MapCellController: NSObject, UITableViewDataSource {
+    private let model: Map
+    
+    public init(model: Map) {
+        self.model = model
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: MapTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MapTableViewCell", for: indexPath) as! MapTableViewCell
+        
+        var configuration = cell.defaultContentConfiguration()
+        
+        configuration.text = model.name
+        
+        cell.contentConfiguration = configuration
+        
+        
+        return cell
+    }
+}
+
+//public struct MapViewModel: Hashable {
+//    public let name: String
+//    
+//    public init(name: String) {
+//        self.name = name
+//    }
+//}
+
+extension UITableView {
+    func register(_ object: UITableViewCell.Type) {
+        register(object, forCellReuseIdentifier: object.classString)
+    }
+}
+
+public extension NSObject {
+    static var classString: String {
+        String(describing: self.self)
     }
 }
