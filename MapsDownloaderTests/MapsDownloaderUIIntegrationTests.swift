@@ -51,6 +51,26 @@ final class MapsDownloaderUIIntegrationTests: XCTestCase {
         assertThat(sut, isRendering: [map0, map1, map2, map3])
     }
     
+    func test_loadingMapsIndicator_isVisibleWhileLoadingMapsOnSucceed() {
+        let (sut, loader) = makeSUT()
+        
+        sut.simulateAppearance()
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is loaded")
+        
+        loader.completeMapsLoading(at: 0)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading completes successfully")
+    }
+    
+    func test_loadingMapsIndicator_isVisibleWhileLoadingMapsOnFailued() {
+        let (sut, loader) = makeSUT()
+        
+        sut.simulateAppearance()
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is loaded")
+        
+        loader.completeMapsLoading(with: anyNSError)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading completes with error")
+    }
+    
     
     // MARK: - Helpersx
     
@@ -104,4 +124,12 @@ class LoaderSpy: MapsLoader {
     func completeMapsLoading(with maps: [Map] = [], at index: Int = 0) {
         mapsRequests[index](.success(maps))
     }
+    
+    func completeMapsLoading(with error: Error, at index: Int = 0) {
+        mapsRequests[index](.failure(error))
+    }
+}
+
+var anyNSError: NSError {
+    NSError(domain: "any error", code: 0)
 }
