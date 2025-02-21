@@ -21,6 +21,10 @@ extension DownloadMapsViewController {
         refreshControl?.isRefreshing == true
     }
     
+    var isShowingError: Bool {
+        errorView != nil
+    }
+    
     private func replaceRefreshControllerWithFakeForiOS17Support() {
         let fakeRefreshController = FakeRefreshControl()
         

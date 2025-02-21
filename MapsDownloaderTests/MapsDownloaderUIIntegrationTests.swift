@@ -83,6 +83,32 @@ final class MapsDownloaderUIIntegrationTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
     
+    func test_loadMapsCompletion_doNotShowErrorOnSucceedResponse() {
+        let (sut, loader) = makeSUT()
+        sut.simulateAppearance()
+        
+        XCTAssertFalse(sut.isShowingError, "Expected no error message once loading")
+        
+        loader.completeMapsLoading()
+        XCTAssertFalse(sut.isShowingError, "Expected no error message once succeed response")
+    }
+    
+    func test_loadMapsCompletion_showErrorOnFailureResponse() {
+        let exp = expectation(description: "Wait for request")
+        let (sut, loader) = makeSUT()
+        sut.simulateAppearance()
+        
+        XCTAssertFalse(sut.isShowingError, "Expected no error message once loading")
+        
+        loader.completeMapsLoading(with: anyNSError)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1.0)
+        XCTAssertTrue(sut.isShowingError, "Expected error message once user completes with error")
+    }
+    
     // MARK: - Helpersx
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: DownloadMapsViewController, loader: LoaderSpy) {

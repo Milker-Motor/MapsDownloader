@@ -38,6 +38,8 @@ public final class DownloadMapsViewController: UIViewController {
         
         return label
     }()
+    
+    private (set) public var errorView: UIViewController?
         
     public var refreshControl: UIRefreshControl? {
         get { mapsController.refreshControl }
@@ -107,6 +109,19 @@ extension DownloadMapsViewController: MapsLoadingView {
 extension DownloadMapsViewController: MapsErrorView {
     public func display(_ viewModel: MapsErrorViewModel) {
         let alertController = UIAlertController(title: "Error", message: viewModel.text, preferredStyle: .alert)
+        
+        let retry = UIAlertAction(title: "Retry", style: .default) { [weak self] _ in
+            self?.refresh()
+            self?.errorView = nil
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { [weak self] _ in
+            self?.errorView = nil
+            
+        }
+        
+        alertController.addAction(retry)
+        alertController.addAction(cancel)
+        errorView = alertController
         present(alertController, animated: true)
     }
 }

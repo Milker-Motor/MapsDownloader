@@ -10,7 +10,7 @@ import Foundation
 public final class DownloadMapsComposer {
     public static func mapsComposedWith(mapsLoader: MapsLoader) -> DownloadMapsViewController {
 
-        let presentationAdapter = MapsLoaderPresentationAdapter(mapsLoader: mapsLoader)
+        let presentationAdapter = MapsLoaderPresentationAdapter(mapsLoader: MainQueueDispatchDecorator(decoratee: mapsLoader))
         
         
         let mapsController = makeDownloadMapsViewController(delegate: presentationAdapter)
