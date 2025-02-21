@@ -41,12 +41,3 @@ extension MapsTableViewController: UITabBarDelegate {
         dg?.tableView?(tableView, didSelectRowAt: indexPath)
     }
 }
-
-extension MapsTableViewController: UITableViewDataSourcePrefetching {
-    public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        indexPaths.forEach { indexPath in
-            let dsp = cellController(at: indexPath)?.dataSourcePrefetching
-            dsp?.tableView(tableView, prefetchRowsAt: [indexPath])
-        }
-    }
-}

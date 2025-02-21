@@ -28,17 +28,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 }
 
-public class LocalMapsLoader {
-    
-}
-
-extension LocalMapsLoader: MapsLoader {
-    public func load(completion: @escaping (MapsLoader.Result) -> Void) {
-        completion(.success([Map(name: "1"), Map(name: "12"), Map(name: "13")]))
-    }
-    
-}
-
 public protocol MapsErrorView {
     func display(_ viewModel: MapsErrorViewModel)
 }
