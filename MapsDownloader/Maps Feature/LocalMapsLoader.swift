@@ -21,20 +21,30 @@ extension LocalMapsLoader: MapsLoader {
             return
         }
         
-        completion(.success(
-            parsedRegions
-                .map { Map(name: $0.name) }
-                .sorted { $0.name < $1.name }
-        ))
+        completion(.success(parsedRegions.toMaps().sorted { $0.name < $1.name }))
     }
-    
 }
 
-private struct Region {
+extension Array where Element == Region {
+    func toMaps() -> [Map] {
+        map { region in
+            Map(name: region.name, maps: region.subregions.toMaps())
+        }
+    }
+}
+
+private final class Region {
     let name: String
     let type: String?
     let translate: String?
-    var subregions: [Region] = []
+    var subregions: [Region]
+    
+    init(name: String, type: String?, translate: String?, subregions: [Region] = []) {
+        self.name = name
+        self.type = type
+        self.translate = translate
+        self.subregions = subregions
+    }
 }
 
 private class RegionXMLParser: NSObject {
@@ -53,22 +63,23 @@ extension RegionXMLParser: XMLParserDelegate {
     func parser(_ parser: XMLParser, didStartElement elementName: String,
                 namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String]) {
         
-        if elementName == "region" {
-            let name = attributeDict["name"]?.capitalized ?? "Unknown"
-            let type = attributeDict["type"]
-            let translate = attributeDict["translate"]
-            let newRegion = Region(name: name, type: type, translate: translate)
-            
-            if let parentRegion = regionStack.last {
-                var updatedParent = parentRegion
-                updatedParent.subregions.append(newRegion)
-                regionStack[regionStack.count - 1] = updatedParent
-            } else {
-                regions.append(newRegion)
-            }
-            
-            regionStack.append(newRegion)
+        guard elementName == "region" else { return }
+        
+        let name = attributeDict["name"]?.capitalized ?? "Unknown"
+        let type = attributeDict["type"]
+        let translate = attributeDict["translate"]
+        let newRegion = Region(name: name, type: type, translate: translate)
+        
+        if let parentRegion = regionStack.last {
+            var updatedParent = parentRegion
+            updatedParent.subregions.append(newRegion)
+            regionStack[regionStack.count - 1] = updatedParent
+        } else {
+            regions.append(newRegion)
         }
+        
+        regionStack.append(newRegion)
+        
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {

@@ -30,6 +30,7 @@
 		493296A72D68A788003D8397 /* MainQueueDispatchDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296A62D68A788003D8397 /* MainQueueDispatchDecorator.swift */; };
 		493296A92D68ACEA003D8397 /* MapCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296A82D68ACEA003D8397 /* MapCellController.swift */; };
 		493296AB2D68BAF5003D8397 /* LocalMapsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296AA2D68BAF5003D8397 /* LocalMapsLoader.swift */; };
+		493296AD2D690677003D8397 /* MapsDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296AC2D690677003D8397 /* MapsDetailTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		493296A62D68A788003D8397 /* MainQueueDispatchDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQueueDispatchDecorator.swift; sourceTree = "<group>"; };
 		493296A82D68ACEA003D8397 /* MapCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCellController.swift; sourceTree = "<group>"; };
 		493296AA2D68BAF5003D8397 /* LocalMapsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMapsLoader.swift; sourceTree = "<group>"; };
+		493296AC2D690677003D8397 /* MapsDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsDetailTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				491F465A2D65E17E00D3E631 /* SceneDelegate.swift */,
 				493296922D676CCF003D8397 /* CellController.swift */,
 				491F465C2D65E17E00D3E631 /* DownloadMapsViewController.swift */,
+				493296AC2D690677003D8397 /* MapsDetailTableViewController.swift */,
 				493296A82D68ACEA003D8397 /* MapCellController.swift */,
 				4932968B2D67529C003D8397 /* MapsTableViewController.swift */,
 				491F46B52D65FC4400D3E631 /* CombineHelpers.swift */,
@@ -280,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4932968C2D67529C003D8397 /* MapsTableViewController.swift in Sources */,
+				493296AD2D690677003D8397 /* MapsDetailTableViewController.swift in Sources */,
 				493296AB2D68BAF5003D8397 /* LocalMapsLoader.swift in Sources */,
 				491F465D2D65E17E00D3E631 /* DownloadMapsViewController.swift in Sources */,
 				493296A52D686C50003D8397 /* DownloadMapsComposer.swift in Sources */,

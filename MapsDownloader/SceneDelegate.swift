@@ -11,6 +11,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     
+    private lazy var navigationController = {
+        let nc = UINavigationController(
+            rootViewController: DownloadMapsComposer.mapsComposedWith(
+                mapsLoader: LocalMapsLoader(),
+                selection: showMaps
+            )
+        )
+        nc.navigationBar.tintColor = .white
+        nc.navigationBar.backgroundColor = .navigationBar
+        nc.navigationBar.barTintColor = .white
+        nc.view.backgroundColor = .navigationBar
+        nc.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        nc.navigationBar.isTranslucent = false
+        
+        return nc
+    }()
+
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let scene = (scene as? UIWindowScene) else { return }
@@ -20,13 +37,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func configureWindow() {
-        window?.rootViewController = UINavigationController(
-            
-            rootViewController: DownloadMapsComposer.mapsComposedWith(mapsLoader: LocalMapsLoader())
-        )
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
+    
+    private func showMaps(for map: Map) {
+//        let existedMaps = ExistedMaps(maps: map.maps)
+        let maps = DownloadMapsComposer.mapsDetail()
+        maps.title = map.name
+        navigationController.pushViewController(maps, animated: true)
+//        maps.display(<#T##sections: [CellController]...##[CellController]#>)
+    }
 }
+//
+//private class ExistedMaps: MapsLoader {
+//    let maps: [Map]
+//    init(maps: [Map]) {
+//        self.maps = maps
+//    }
+//    
+//    func load(completion: @escaping (MapsLoader.Result) -> Void) {
+//        completion(.success(maps))
+//    }
+//}
 
 public protocol MapsErrorView {
     func display(_ viewModel: MapsErrorViewModel)

@@ -7,15 +7,15 @@
 
 import Foundation
 
-public struct Map: Hashable, Identifiable {
-    public let id: UUID
+public struct Map: Hashable {
     public let name: String
     public let flagImageName: String
+    public let maps: [Map]
     
-    public init(name: String) {
-        self.id = UUID()
+    public init(name: String, maps: [Map]) {
         self.name = name
         self.flagImageName = "ic_custom_show_on_map"
+        self.maps = maps
     }
 }
 

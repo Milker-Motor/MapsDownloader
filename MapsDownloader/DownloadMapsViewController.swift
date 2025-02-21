@@ -45,18 +45,28 @@ public final class DownloadMapsViewController: UIViewController {
         get { mapsController.refreshControl }
         set { mapsController.refreshControl = newValue }
     }
-    private lazy var mapsController = MapsTableViewController()
+    lazy var mapsController = MapsTableViewController()
     
     public var tableView: UITableView {
         mapsController.tableView
     }
     private var onViewIsAppearing: ((DownloadMapsViewController) -> Void)? = nil
     
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .clear
-        navigationController?.navigationBar.isHidden = true
         
         setupUI()
         
@@ -128,10 +138,18 @@ extension DownloadMapsViewController: MapsErrorView {
     }
 }
 
-extension DownloadMapsViewController: MapView {
+final class MapViewAdapter: MapView {
+    private weak var controller: DownloadMapsViewController?
+    private let selection: (Map) -> Void
+    
+    init(controller: DownloadMapsViewController, selection: @escaping (Map) -> Void) {
+        self.controller = controller
+        self.selection = selection
+    }
+    
     public func display(_ viewModel: MapsViewModel) {
-        mapsController.display(viewModel.maps.map { viewModel in
-            CellController(id: viewModel, MapCellController(model: viewModel))
+        controller?.mapsController.display(viewModel.maps.map { viewModel in
+            CellController(id: viewModel, MapCellController(model: viewModel, selection: selection))
         })
     }
 }

@@ -9,10 +9,13 @@ import Foundation
 
 final class MapsLoaderPresentationAdapter {
     private let mapsLoader: MapsLoader
+    private let selection: (Map) -> Void
+    
     var presenter: DownloadMapsPresenter?
     
-    init(mapsLoader: MapsLoader) {
+    init(mapsLoader: MapsLoader, selection: @escaping (Map) -> Void) {
         self.mapsLoader = mapsLoader
+        self.selection = selection
     }
 }
 

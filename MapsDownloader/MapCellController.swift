@@ -9,9 +9,11 @@ import UIKit
 
 public class MapCellController: NSObject {
     private let model: Map
+    private let selection: (Map) -> Void
     
-    public init(model: Map) {
+    public init(model: Map, selection: @escaping (Map) -> Void) {
         self.model = model
+        self.selection = selection
     }
 }
 
@@ -32,6 +34,7 @@ extension MapCellController: UITableViewDataSource {
         configuration.image = UIImage(named: model.flagImageName)
         
         cell.contentConfiguration = configuration
+        cell.accessoryType = .disclosureIndicator
         
         var backgroundConfig = UIBackgroundConfiguration.listPlainCell()
         backgroundConfig.backgroundColor = .tableCellBackground
@@ -48,6 +51,7 @@ extension MapCellController: UITableViewDataSource {
 
 extension MapCellController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selection(model)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
