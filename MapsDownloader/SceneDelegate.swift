@@ -81,6 +81,11 @@ public protocol MapView {
     func display(_ viewModel: MapsViewModel)
 }
 
+public struct StorageViewModel {
+    let freeSpace: NSNumber
+    let totalSize: NSNumber
+}
+
 public struct MapsViewModel {
     let maps: [Map]
 }

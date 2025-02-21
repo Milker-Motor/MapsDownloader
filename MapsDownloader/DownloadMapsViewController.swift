@@ -45,6 +45,7 @@ public final class DownloadMapsViewController: UIViewController {
         get { mapsController.refreshControl }
         set { mapsController.refreshControl = newValue }
     }
+
     lazy var mapsController = MapsTableViewController()
     
     public var tableView: UITableView {
@@ -74,6 +75,7 @@ public final class DownloadMapsViewController: UIViewController {
             vc.refresh()
             vc.onViewIsAppearing = nil
         }
+        mapsController.display([CellController(id: UUID(), StorageCellController())])
     }
     
     public override func viewIsAppearing(_ animated: Bool) {
@@ -104,6 +106,7 @@ public final class DownloadMapsViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
+        tableView.register(StorageTableViewCell.self)
         tableView.register(MapTableViewCell.self)
     }
     
@@ -138,6 +141,25 @@ extension DownloadMapsViewController: MapsErrorView {
     }
 }
 
+final class DetailMapViewAdapter: MapView {
+    private weak var controller: MapsTableViewController?
+    private let selection: (Map) -> Void
+    
+    init(controller: MapsTableViewController, selection: @escaping (Map) -> Void) {
+        self.controller = controller
+        self.selection = selection
+    }
+    
+    public func display(_ viewModel: MapsViewModel) {
+        let mapsSection = viewModel.maps.map { viewModel in
+            CellController(id: viewModel, MapCellController(model: viewModel, selection: selection))
+        }
+        
+        controller?.display(mapsSection)
+        
+    }
+}
+
 final class MapViewAdapter: MapView {
     private weak var controller: MapsTableViewController?
     private let selection: (Map) -> Void
@@ -148,9 +170,13 @@ final class MapViewAdapter: MapView {
     }
     
     public func display(_ viewModel: MapsViewModel) {
-        controller?.display(viewModel.maps.map { viewModel in
+        let freeSpaceSection = [CellController(id: UUID(), StorageCellController())]
+        let mapsSection = viewModel.maps.map { viewModel in
             CellController(id: viewModel, MapCellController(model: viewModel, selection: selection))
-        })
+        }
+        
+        controller?.display(freeSpaceSection, mapsSection)
+        
     }
 }
 

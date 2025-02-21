@@ -23,7 +23,7 @@ extension MapCellController: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: MapTableViewCell = tableView.dequeueReusableCell(withIdentifier: MapTableViewCell.classString, for: indexPath) as! MapTableViewCell
+        let cell: MapTableViewCell = tableView.dequeueReusableCell(MapTableViewCell.self)
         
         var configuration = cell.defaultContentConfiguration()
         

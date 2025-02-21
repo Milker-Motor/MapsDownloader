@@ -31,6 +31,9 @@
 		493296A92D68ACEA003D8397 /* MapCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296A82D68ACEA003D8397 /* MapCellController.swift */; };
 		493296AB2D68BAF5003D8397 /* LocalMapsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296AA2D68BAF5003D8397 /* LocalMapsLoader.swift */; };
 		493296AD2D690677003D8397 /* MapsDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296AC2D690677003D8397 /* MapsDetailTableViewController.swift */; };
+		493296AF2D6910D7003D8397 /* StorageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296AE2D6910D7003D8397 /* StorageTableViewCell.swift */; };
+		493296B12D69130B003D8397 /* StorageCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296B02D69130B003D8397 /* StorageCellController.swift */; };
+		497530922D6922F900779BED /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497530912D6922F900779BED /* UITableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,9 @@
 		493296A82D68ACEA003D8397 /* MapCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCellController.swift; sourceTree = "<group>"; };
 		493296AA2D68BAF5003D8397 /* LocalMapsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMapsLoader.swift; sourceTree = "<group>"; };
 		493296AC2D690677003D8397 /* MapsDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsDetailTableViewController.swift; sourceTree = "<group>"; };
+		493296AE2D6910D7003D8397 /* StorageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTableViewCell.swift; sourceTree = "<group>"; };
+		493296B02D69130B003D8397 /* StorageCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCellController.swift; sourceTree = "<group>"; };
+		497530912D6922F900779BED /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,10 +126,13 @@
 				491F465C2D65E17E00D3E631 /* DownloadMapsViewController.swift */,
 				493296AC2D690677003D8397 /* MapsDetailTableViewController.swift */,
 				493296A82D68ACEA003D8397 /* MapCellController.swift */,
+				493296B02D69130B003D8397 /* StorageCellController.swift */,
 				4932968B2D67529C003D8397 /* MapsTableViewController.swift */,
 				491F46B52D65FC4400D3E631 /* CombineHelpers.swift */,
 				491F46BF2D6730F200D3E631 /* UIColor.swift */,
 				493296902D67632F003D8397 /* MapTableViewCell.swift */,
+				493296AE2D6910D7003D8397 /* StorageTableViewCell.swift */,
+				497530912D6922F900779BED /* UITableView.swift */,
 				493296862D6749CC003D8397 /* Maps Feature */,
 				491F46612D65E18100D3E631 /* Assets.xcassets */,
 				491F46632D65E18100D3E631 /* LaunchScreen.storyboard */,
@@ -292,12 +301,15 @@
 				493296A72D68A788003D8397 /* MainQueueDispatchDecorator.swift in Sources */,
 				493296A92D68ACEA003D8397 /* MapCellController.swift in Sources */,
 				491F465B2D65E17E00D3E631 /* SceneDelegate.swift in Sources */,
+				497530922D6922F900779BED /* UITableView.swift in Sources */,
 				491F46B62D65FC4400D3E631 /* CombineHelpers.swift in Sources */,
+				493296AF2D6910D7003D8397 /* StorageTableViewCell.swift in Sources */,
 				493296A32D686C0D003D8397 /* DownloadMapsPresenter.swift in Sources */,
 				491F46C02D6730F300D3E631 /* UIColor.swift in Sources */,
 				493296882D6749E6003D8397 /* MapsLoader.swift in Sources */,
 				4932968A2D674CD6003D8397 /* MapsLoaderPresentationAdapter.swift in Sources */,
 				493296932D676CCF003D8397 /* CellController.swift in Sources */,
+				493296B12D69130B003D8397 /* StorageCellController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

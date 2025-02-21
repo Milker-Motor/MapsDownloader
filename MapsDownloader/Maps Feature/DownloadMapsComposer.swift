@@ -10,7 +10,7 @@ import Foundation
 public final class DownloadMapsComposer {
     static func mapsDetail(with maps: [Map]) -> MapsDetailTableViewController {
         let mapsController = MapsDetailTableViewController()
-        let viewAdapter = MapViewAdapter(controller: mapsController, selection: { _ in })
+        let viewAdapter = DetailMapViewAdapter(controller: mapsController, selection: { _ in })
         viewAdapter.display(MapsViewModel(maps: maps))
         
         return mapsController
