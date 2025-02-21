@@ -11,6 +11,7 @@ public class MapCellController: NSObject {
     private let model: Map
     private let header: String
     private let selection: (Map) -> Void
+    private var cell: MapTableViewCell?
     
     public init(model: Map, header: String, selection: @escaping (Map) -> Void) {
         self.model = model
@@ -25,7 +26,7 @@ extension MapCellController: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: MapTableViewCell = tableView.dequeueReusableCell(MapTableViewCell.self)
+        let cell = tableView.dequeueReusableCell(MapTableViewCell.self)
         
         var configuration = cell.defaultContentConfiguration()
         
@@ -46,8 +47,13 @@ extension MapCellController: UITableViewDataSource {
         }
         
         cell.backgroundConfiguration = backgroundConfig
+        self.cell = cell
         
         return cell
+    }
+    
+    private func releaseCellForReuse() {
+        cell = nil
     }
 }
 

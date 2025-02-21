@@ -38,7 +38,6 @@ extension DownloadMapsViewController {
     }
     
     var numberOfRenderedMapsViews: Int {
-        
         tableView.numberOfRows(inSection: mapsSection)
     }
     
@@ -50,7 +49,7 @@ extension DownloadMapsViewController {
         return ds?.tableView(tableView, cellForRowAt: index)
     }
     
-    private var mapsSection: Int { 0 }
+    private var mapsSection: Int { 1 }
 }
 
 private final class FakeRefreshControl: UIRefreshControl {
