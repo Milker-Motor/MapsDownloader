@@ -152,7 +152,7 @@ final class DetailMapViewAdapter: MapView {
     
     public func display(_ viewModel: MapsViewModel) {
         let mapsSection = viewModel.maps.map { viewModel in
-            CellController(id: viewModel, MapCellController(model: viewModel, selection: selection))
+            CellController(id: viewModel, MapCellController(model: viewModel, header: "REGIONS", selection: selection))
         }
         
         controller?.display(mapsSection)
@@ -172,7 +172,7 @@ final class MapViewAdapter: MapView {
     public func display(_ viewModel: MapsViewModel) {
         let freeSpaceSection = [CellController(id: UUID(), StorageCellController())]
         let mapsSection = viewModel.maps.map { viewModel in
-            CellController(id: viewModel, MapCellController(model: viewModel, selection: selection))
+            CellController(id: viewModel, MapCellController(model: viewModel, header: "EUROPE", selection: selection))
         }
         
         controller?.display(freeSpaceSection, mapsSection)

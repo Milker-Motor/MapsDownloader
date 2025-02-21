@@ -38,3 +38,13 @@ extension StorageCellController: UITableViewDataSource {
         return cell
     }
 }
+
+extension StorageCellController: UITableViewDelegate {
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        0
+    }
+    
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        nil
+    }
+}

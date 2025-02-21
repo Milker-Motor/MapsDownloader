@@ -14,6 +14,14 @@ class MapsTableViewController: UITableViewController {
         }
     }()
     
+    init() {
+        super.init(style: .grouped)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,9 +43,24 @@ class MapsTableViewController: UITableViewController {
     }
 }
 
-extension MapsTableViewController: UITabBarDelegate {
+extension MapsTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dg = cellController(at: indexPath)?.delegate
         dg?.tableView?(tableView, didSelectRowAt: indexPath)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let dg = cellController(at: IndexPath(row: 0, section: section))?.delegate
+        return dg?.tableView?(tableView, heightForHeaderInSection: section) ?? 0
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let dg = cellController(at: IndexPath(row: 0, section: section))?.delegate
+        return dg?.tableView?(tableView, viewForHeaderInSection: section)
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let ds = cellController(at: IndexPath(row: 0, section: section))?.dataSource
+        return ds?.tableView?(tableView, titleForHeaderInSection: section)
     }
 }
