@@ -75,7 +75,9 @@ public final class DownloadMapsViewController: UIViewController {
     private func setupUI() {
         view.addSubview(topBanner)
         topBanner.addSubview(titleLabel)
-        view.addSubview(mapsController.tableView)
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+
         
         NSLayoutConstraint.activate([
             topBanner.topAnchor.constraint(equalTo: view.topAnchor),
@@ -86,10 +88,10 @@ public final class DownloadMapsViewController: UIViewController {
             titleLabel.bottomAnchor.constraint(equalTo: topBanner.bottomAnchor, constant: -10),
             titleLabel.leadingAnchor.constraint(equalTo: topBanner.leadingAnchor, constant: 16),
             
-            topBanner.bottomAnchor.constraint(equalTo: mapsController.tableView.topAnchor),
-            mapsController.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mapsController.tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            mapsController.tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            topBanner.bottomAnchor.constraint(equalTo: tableView.topAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         tableView.register(MapTableViewCell.self)
@@ -131,31 +133,6 @@ extension DownloadMapsViewController: MapView {
         mapsController.display(viewModel.maps.map { viewModel in
             CellController(id: viewModel, MapCellController(model: viewModel))
         })
-    }
-}
-
-public class MapCellController: NSObject, UITableViewDataSource {
-    private let model: Map
-    
-    public init(model: Map) {
-        self.model = model
-    }
-    
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
-    }
-    
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: MapTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MapTableViewCell", for: indexPath) as! MapTableViewCell
-        
-        var configuration = cell.defaultContentConfiguration()
-        
-        configuration.text = model.name
-        
-        cell.contentConfiguration = configuration
-        
-        
-        return cell
     }
 }
 

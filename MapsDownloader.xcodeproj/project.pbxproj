@@ -28,6 +28,7 @@
 		493296A32D686C0D003D8397 /* DownloadMapsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296A22D686C0D003D8397 /* DownloadMapsPresenter.swift */; };
 		493296A52D686C50003D8397 /* DownloadMapsComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296A42D686C50003D8397 /* DownloadMapsComposer.swift */; };
 		493296A72D68A788003D8397 /* MainQueueDispatchDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296A62D68A788003D8397 /* MainQueueDispatchDecorator.swift */; };
+		493296A92D68ACEA003D8397 /* MapCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296A82D68ACEA003D8397 /* MapCellController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		493296A22D686C0D003D8397 /* DownloadMapsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadMapsPresenter.swift; sourceTree = "<group>"; };
 		493296A42D686C50003D8397 /* DownloadMapsComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadMapsComposer.swift; sourceTree = "<group>"; };
 		493296A62D68A788003D8397 /* MainQueueDispatchDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQueueDispatchDecorator.swift; sourceTree = "<group>"; };
+		493296A82D68ACEA003D8397 /* MapCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCellController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				491F465A2D65E17E00D3E631 /* SceneDelegate.swift */,
 				493296922D676CCF003D8397 /* CellController.swift */,
 				491F465C2D65E17E00D3E631 /* DownloadMapsViewController.swift */,
+				493296A82D68ACEA003D8397 /* MapCellController.swift */,
 				4932968B2D67529C003D8397 /* MapsTableViewController.swift */,
 				491F46B52D65FC4400D3E631 /* CombineHelpers.swift */,
 				491F46BF2D6730F200D3E631 /* UIColor.swift */,
@@ -279,6 +282,7 @@
 				493296912D67632F003D8397 /* MapTableViewCell.swift in Sources */,
 				491F46592D65E17E00D3E631 /* AppDelegate.swift in Sources */,
 				493296A72D68A788003D8397 /* MainQueueDispatchDecorator.swift in Sources */,
+				493296A92D68ACEA003D8397 /* MapCellController.swift in Sources */,
 				491F465B2D65E17E00D3E631 /* SceneDelegate.swift in Sources */,
 				491F46B62D65FC4400D3E631 /* CombineHelpers.swift in Sources */,
 				493296A32D686C0D003D8397 /* DownloadMapsPresenter.swift in Sources */,
