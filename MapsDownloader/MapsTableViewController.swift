@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MapsTableViewController: UITableViewController, UITableViewDataSourcePrefetching {
+class MapsTableViewController: UITableViewController {
     private lazy var dataSource: UITableViewDiffableDataSource<Int, CellController> = {
         .init(tableView: tableView) { (tableView, index, controller) in
             controller.dataSource.tableView(tableView, cellForRowAt: index)
@@ -30,14 +30,23 @@ class MapsTableViewController: UITableViewController, UITableViewDataSourcePrefe
         dataSource.applySnapshotUsingReloadData(snapshot)
     }
     
+    private func cellController(at indexPath: IndexPath) -> CellController? {
+        dataSource.itemIdentifier(for: indexPath)
+    }
+}
+
+extension MapsTableViewController: UITabBarDelegate {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dg = cellController(at: indexPath)?.delegate
+        dg?.tableView?(tableView, didSelectRowAt: indexPath)
+    }
+}
+
+extension MapsTableViewController: UITableViewDataSourcePrefetching {
     public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         indexPaths.forEach { indexPath in
             let dsp = cellController(at: indexPath)?.dataSourcePrefetching
             dsp?.tableView(tableView, prefetchRowsAt: [indexPath])
         }
-    }
-    
-    private func cellController(at indexPath: IndexPath) -> CellController? {
-        dataSource.itemIdentifier(for: indexPath)
     }
 }

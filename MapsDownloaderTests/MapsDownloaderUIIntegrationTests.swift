@@ -145,7 +145,7 @@ final class MapsDownloaderUIIntegrationTests: XCTestCase {
         }
         
         XCTAssertEqual(contentConfig.text, map.name, "Expected `name` to be \(map.name) for map at index (\(index)), got \(String(describing: contentConfig.text))", file: file, line: line)
-        
+        XCTAssertNotNil(contentConfig.image, "Expected `image` is set, got nil", file: file, line: line)
     }
 }
 

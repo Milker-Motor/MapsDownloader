@@ -9,9 +9,11 @@ import Foundation
 
 public struct Map: Hashable {
     public let name: String
+    public let flagImageName: String
     
     public init(name: String) {
         self.name = name
+        self.flagImageName = "ic_custom_show_on_map"
     }
 }
 
