@@ -35,12 +35,14 @@ extension Array where Element == Region {
 
 private final class Region {
     let name: String
+    let map: String?
     let type: String?
     let translate: String?
     var subregions: [Region]
     
-    init(name: String, type: String?, translate: String?, subregions: [Region] = []) {
+    init(name: String, map: String?, type: String?, translate: String?, subregions: [Region] = []) {
         self.name = name
+        self.map = map
         self.type = type
         self.translate = translate
         self.subregions = subregions
@@ -66,9 +68,10 @@ extension RegionXMLParser: XMLParserDelegate {
         guard elementName == "region" else { return }
         
         let name = attributeDict["name"]?.capitalized ?? "Unknown"
+        let map = attributeDict["map"]
         let type = attributeDict["type"]
         let translate = attributeDict["translate"]
-        let newRegion = Region(name: name, type: type, translate: translate)
+        let newRegion = Region(name: name, map: map, type: type, translate: translate)
         
         if let parentRegion = regionStack.last {
             var updatedParent = parentRegion

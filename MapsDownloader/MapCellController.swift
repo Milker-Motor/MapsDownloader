@@ -37,7 +37,11 @@ extension MapCellController: UITableViewDataSource {
         configuration.image = UIImage(named: model.flagImageName)
         
         cell.contentConfiguration = configuration
-        cell.accessoryType = .disclosureIndicator
+        cell.accessoryType = model.isMapAvailable ? .none : .disclosureIndicator
+        
+        let downloadImageView = UIImageView(image: UIImage(named: "ic_custom_download"))
+        downloadImageView.tintColor = .systemBlue
+        cell.accessoryView = model.isMapAvailable ? downloadImageView : nil
         
         var backgroundConfig = UIBackgroundConfiguration.listPlainCell()
         backgroundConfig.backgroundColor = .tableCellBackground
@@ -59,7 +63,9 @@ extension MapCellController: UITableViewDataSource {
 
 extension MapCellController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selection(model)
+        if !model.isMapAvailable {
+            selection(model)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

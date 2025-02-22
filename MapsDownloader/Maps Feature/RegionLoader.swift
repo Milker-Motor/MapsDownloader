@@ -11,6 +11,7 @@ public struct Map: Hashable {
     public let name: String
     public let flagImageName: String
     public let maps: [Map]
+    public var isMapAvailable: Bool { maps.isEmpty }
     
     public init(name: String, maps: [Map]) {
         self.name = name

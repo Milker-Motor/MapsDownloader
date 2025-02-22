@@ -6,16 +6,32 @@
 //
 
 import Foundation
+import NetworkingService
 
 protocol MapLoader {
     func load(from url: URL)
 }
 
 final class RemoteMapLoader: MapLoader {
+    private var urlsToDownload: [URL] = []
     private lazy var baseURL = URL(string: "https://download.osmand.net/download")!
-//https://download.osmand.net/download?standard=yes&file=Germany_berlin_europe_2.obf.zip
+    
+    private lazy var httpClient: HTTPClient = {
+        URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
+    }()
+
     func load(from url: URL) {
+        urlsToDownload.append(url)
+        loadNext()
+    }
+    
+    func loadNext() {
+        guard let url = urlsToDownload.first else { return }
         
+        httpClient.get(from: url) { [weak self] response in
+            self?.urlsToDownload.removeAll { $0 == url }
+            self?.loadNext()
+        }
     }
 }
 
