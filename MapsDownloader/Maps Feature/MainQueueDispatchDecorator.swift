@@ -20,8 +20,8 @@ final class MainQueueDispatchDecorator<T> {
     }
 }
 
-extension MainQueueDispatchDecorator: MapsLoader where T == MapsLoader {
-    func load(completion: @escaping (MapsLoader.Result) -> Void) {
+extension MainQueueDispatchDecorator: RegionLoader where T == RegionLoader {
+    func load(completion: @escaping (RegionLoader.Result) -> Void) {
         decoratee.load { [weak self] result in
             self?.dispatch { completion(result) }
         }

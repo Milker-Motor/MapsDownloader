@@ -11,8 +11,8 @@ public class LocalMapsLoader {}
 
 struct XMLParsingError: Error {}
 
-extension LocalMapsLoader: MapsLoader {
-    public func load(completion: @escaping (MapsLoader.Result) -> Void) {
+extension LocalMapsLoader: RegionLoader {
+    public func load(completion: @escaping (RegionLoader.Result) -> Void) {
         let parser = RegionXMLParser()
         guard let xmlPath = Bundle.main.path(forResource: "regions", ofType: "xml"),
               let xmlData = try? Data(contentsOf: URL(fileURLWithPath: xmlPath)),

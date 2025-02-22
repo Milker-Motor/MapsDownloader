@@ -129,13 +129,12 @@ final class MapsDownloaderUIIntegrationTests: XCTestCase {
         sut.view.enforceLayoutCycle()
         
         guard sut.numberOfRenderedMapsViews == maps.count else {
-            return
-//            return XCTFail("Expected \(maps.count) maps, got \(sut.numberOfRenderedMapsViews) instead.", file: file, line: line)
+            return XCTFail("Expected \(maps.count) maps, got \(sut.numberOfRenderedMapsViews) instead.", file: file, line: line)
         }
-//        
-//        maps.enumerated().forEach { index, map in
-//            assertThat(sut, hasViewConfiguredFor: map, at: index, file: file, line: line)
-//        }
+        
+        maps.enumerated().forEach { index, map in
+            assertThat(sut, hasViewConfiguredFor: map, at: index, file: file, line: line)
+        }
     }
     
     func assertThat(_ sut: DownloadMapsViewController, hasViewConfiguredFor map: Map, at index: Int, file: StaticString = #file, line: UInt = #line) {
@@ -150,12 +149,12 @@ final class MapsDownloaderUIIntegrationTests: XCTestCase {
     }
 }
 
-class LoaderSpy: MapsLoader {
+class LoaderSpy: RegionLoader {
     
-    private var mapsRequests = [(MapsLoader.Result) -> Void]()
+    private var mapsRequests = [(RegionLoader.Result) -> Void]()
     var loadMapsCallCount: Int { mapsRequests.count }
     
-    func load(completion: @escaping (MapsLoader.Result) -> Void) {
+    func load(completion: @escaping (RegionLoader.Result) -> Void) {
         mapsRequests.append(completion)
     }
     

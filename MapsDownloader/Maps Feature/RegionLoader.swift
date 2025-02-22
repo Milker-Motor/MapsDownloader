@@ -19,7 +19,7 @@ public struct Map: Hashable {
     }
 }
 
-public protocol MapsLoader {
+public protocol RegionLoader {
     typealias Result = Swift.Result<[Map], Error>
     
     func load(completion: @escaping (Result) -> Void)
