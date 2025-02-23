@@ -8,30 +8,48 @@
 import Foundation
 import NetworkingService
 
+//public protocol MapLoaderTask {
+//    func cancel()
+//}
+
 protocol MapLoader {
-    func load(from url: URL)
+    func load(model: Map)
+    func cancel(model: Map)
 }
 
 final class RemoteMapLoader: MapLoader {
-    private var urlsToDownload: [URL] = []
+    private var tasksToDownload: [(url: URL, task: HTTPClientTask?)] = []
     private lazy var baseURL = URL(string: "https://download.osmand.net/download")!
     
     private lazy var httpClient: HTTPClient = {
         URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
     }()
 
-    func load(from url: URL) {
-        urlsToDownload.append(url)
-        loadNext()
+    func load(model: Map) {
+        let url = MapEndpoint.get(holder: model.parent, region: model.name).url(baseURL: baseURL)
+        tasksToDownload.append((url, nil))
+        guard let task = loadNext() else { return }
+        
+        tasksToDownload.removeLast()
+        tasksToDownload.append((url, task))
     }
     
-    func loadNext() {
-        guard let url = urlsToDownload.first else { return }
+    @discardableResult
+    private func loadNext() -> HTTPClientTask? {
+        guard let url = tasksToDownload.first?.url else { return nil }
         
-        httpClient.get(from: url) { [weak self] response in
-            self?.urlsToDownload.removeAll { $0 == url }
+        let task = httpClient.get(from: url) { [weak self] response in
+            self?.tasksToDownload.removeAll { $0.url == url }
             self?.loadNext()
         }
+        
+        return task
+    }
+    
+    func cancel(model: Map) {
+        let url = MapEndpoint.get(holder: model.parent, region: model.name).url(baseURL: baseURL)
+        tasksToDownload.first { $0.url == url }?.task?.cancel()
+        tasksToDownload.removeAll { $0.url == url }
     }
 }
 

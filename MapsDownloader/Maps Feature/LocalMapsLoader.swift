@@ -28,7 +28,7 @@ extension LocalMapsLoader: RegionLoader {
 extension Array where Element == Region {
     func toMaps() -> [Map] {
         map { region in
-            Map(name: region.name, maps: region.subregions.toMaps())
+            Map(name: region.name, parent: region.parent?.name, maps: region.subregions.toMaps())
         }
     }
 }
@@ -38,6 +38,7 @@ private final class Region {
     let map: String?
     let type: String?
     let translate: String?
+    var parent: Region?
     var subregions: [Region]
     
     init(name: String, map: String?, type: String?, translate: String?, subregions: [Region] = []) {
@@ -77,6 +78,7 @@ extension RegionXMLParser: XMLParserDelegate {
             var updatedParent = parentRegion
             updatedParent.subregions.append(newRegion)
             regionStack[regionStack.count - 1] = updatedParent
+            newRegion.parent = parentRegion
         } else {
             regions.append(newRegion)
         }

@@ -8,13 +8,15 @@
 import Foundation
 
 final class MapsLoaderPresentationAdapter {
-    private let mapsLoader: RegionLoader
+    private let regionLoader: RegionLoader
+    private let mapLoader: MapLoader
     private let selection: (Map) -> Void
     
     var presenter: DownloadMapsPresenter?
     
-    init(mapsLoader: RegionLoader, selection: @escaping (Map) -> Void) {
-        self.mapsLoader = mapsLoader
+    init(regionLoader: RegionLoader, mapLoader: MapLoader, selection: @escaping (Map) -> Void) {
+        self.regionLoader = regionLoader
+        self.mapLoader = mapLoader
         self.selection = selection
     }
 }
@@ -22,7 +24,7 @@ final class MapsLoaderPresentationAdapter {
 extension MapsLoaderPresentationAdapter: DownloadMapsViewControllerDelegate {
     func didRequestMapsLoad() {
         presenter?.didStartLoadingMaps()
-        mapsLoader.load { [weak presenter] result in
+        regionLoader.load { [weak presenter] result in
             switch result {
             case let .success(maps):
                 presenter?.didFinishLoadingMaps(with: maps)
@@ -31,5 +33,15 @@ extension MapsLoaderPresentationAdapter: DownloadMapsViewControllerDelegate {
                 presenter?.didFinishLoadingMaps(with: error)
             }
         }
+    }
+}
+
+extension MapsLoaderPresentationAdapter: MapCellControllerDelegate {
+    func didRequestMap(map: Map) {
+        mapLoader.load(model: map)
+    }
+    
+    func didCancelIMapRequest(map: Map) {
+        mapLoader.cancel(model: map)
     }
 }

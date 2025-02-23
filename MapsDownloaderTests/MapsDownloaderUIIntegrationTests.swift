@@ -113,7 +113,7 @@ final class MapsDownloaderUIIntegrationTests: XCTestCase {
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: DownloadMapsViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
-        let sut = DownloadMapsComposer.mapsComposedWith(mapsLoader: loader)
+        let sut = DownloadMapsComposer.mapsComposedWith(regionLoader: loader)
         
         trackForMemoryLeaks(sut, file: file, line: line)
         trackForMemoryLeaks(loader, file: file, line: line)

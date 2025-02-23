@@ -11,10 +11,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     
+    private lazy var regionLoader = LocalMapsLoader()
+    private lazy var mapLoader = RemoteMapLoader()
+    
     private lazy var navigationController = {
         let nc = UINavigationController(
             rootViewController: DownloadMapsComposer.mapsComposedWith(
-                mapsLoader: LocalMapsLoader(),
+                regionLoader: regionLoader,
+                mapLoader: mapLoader,
                 selection: showMaps
             )
         )
@@ -43,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func showMaps(for map: Map) {
 //        let existedMaps = ExistedMaps(maps: map.maps)
-        let maps = DownloadMapsComposer.mapsDetail(with: map.maps)
+        let maps = DownloadMapsComposer.mapsDetail(with: map.maps, mapLoader: mapLoader, regionLoader: regionLoader)
         maps.title = map.name
         navigationController.pushViewController(maps, animated: true)
 //        maps.display(<#T##sections: [CellController]...##[CellController]#>)

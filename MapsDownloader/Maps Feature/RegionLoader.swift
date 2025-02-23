@@ -9,12 +9,14 @@ import Foundation
 
 public struct Map: Hashable {
     public let name: String
+    public let parent: String?
     public let flagImageName: String
     public let maps: [Map]
     public var isMapAvailable: Bool { maps.isEmpty }
     
-    public init(name: String, maps: [Map]) {
+    public init(name: String, parent: String?, maps: [Map]) {
         self.name = name
+        self.parent = parent
         self.flagImageName = "ic_custom_show_on_map"
         self.maps = maps
     }
