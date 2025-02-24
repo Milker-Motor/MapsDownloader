@@ -45,40 +45,14 @@ extension MapCellController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(MapTableViewCell.self)
         
-        var configuration = cell.defaultContentConfiguration()
+        cell.state = model.isMapAvailable ? .downloading : .default
         
-        configuration.text = model.name
-        configuration.textProperties.font = UIFont.preferredFont(forTextStyle: .body)
-        
-        configuration.imageProperties.tintColor = .iconMapDefault
-        configuration.image = UIImage(named: model.flagImageName)
-        
-        cell.contentConfiguration = configuration
-        cell.accessoryType = model.isMapAvailable ? .none : .disclosureIndicator
-        
-//        let downloadImageView = UIImageView(image: UIImage(named: "ic_custom_download"))
-//        downloadImageView.tintColor = .systemBlue
-//        cell.accessoryView = model.isMapAvailable ? downloadImageView : nil
-        let downloadButton = UIButton(type: .custom)
-        downloadButton.setImage(UIImage(named: "ic_custom_download"), for: .normal)
-            
-        downloadButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        downloadButton.tintColor = .systemBlue
-        downloadButton.addAction(UIAction { [weak self] _ in
+        cell.actionButton.addAction(UIAction { [weak self] _ in
             guard let self else { return }
             self.delegate.didRequestMap(map: self.model)
         }, for: .touchUpInside)
-
-        cell.accessoryView = model.isMapAvailable ? downloadButton : nil
         
-        var backgroundConfig = UIBackgroundConfiguration.listPlainCell()
-        backgroundConfig.backgroundColor = .tableCellBackground
-        
-        backgroundConfig.backgroundColorTransformer = UIConfigurationColorTransformer { color in
-            color.resolvedColor(with: UITraitCollection.current).withAlphaComponent(0.5)
-        }
-        
-        cell.backgroundConfiguration = backgroundConfig
+        cell.nameLabel.text = model.name
         self.cell = cell
         
         return cell
