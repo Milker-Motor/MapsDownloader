@@ -12,8 +12,8 @@ import NetworkingService
 //    func cancel()
 //}
 
-protocol MapLoader {
-    func load(model: Map)
+public protocol MapLoader {
+    func load(model: Map, progress: @escaping (Progress) -> Void)
     func cancel(model: Map)
 }
 
@@ -21,15 +21,20 @@ final class RemoteMapLoader: MapLoader {
     private var tasksToDownload: [(url: URL, task: HTTPClientTask?)] = []
     private lazy var baseURL = URL(string: "https://download.osmand.net/download")!
     
+    private var observation: NSKeyValueObservation?
+    
     private lazy var httpClient: HTTPClient = {
         URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
     }()
 
-    func load(model: Map) {
+    func load(model: Map, progress: @escaping (Progress) -> Void) {
         let url = MapEndpoint.get(holder: model.parent, region: model.name).url(baseURL: baseURL)
         tasksToDownload.append((url, nil))
-        guard let task = loadNext() else { return }
+        guard tasksToDownload.count == 1, let task = loadNext() else { return }
         
+        observation = task.progress.observe(\.fractionCompleted, options: [.new]) { prog, _ in
+            progress(prog)
+        }
         tasksToDownload.removeLast()
         tasksToDownload.append((url, task))
     }

@@ -16,7 +16,7 @@ public final class DownloadMapsComposer {
         return mapsController
     }
     
-    static func mapsComposedWith(regionLoader: RegionLoader, mapLoader: MapLoader, selection: @escaping (Map) -> Void = { _ in } ) -> DownloadMapsViewController {
+    public static func mapsComposedWith(regionLoader: RegionLoader, mapLoader: MapLoader, selection: @escaping (Map) -> Void = { _ in } ) -> DownloadMapsViewController {
 
         let presentationAdapter = MapsLoaderPresentationAdapter(
             regionLoader: MainQueueDispatchDecorator(decoratee: regionLoader),

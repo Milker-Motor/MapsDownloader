@@ -66,7 +66,7 @@ extension RegionXMLParser: XMLParserDelegate {
     func parser(_ parser: XMLParser, didStartElement elementName: String,
                 namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String]) {
         
-        guard elementName == "region" else { return }
+        guard elementName == "region"/*, attributeDict["name"]?.lowercased() != "europe"*/ else { return }
         
         let name = attributeDict["name"]?.capitalized ?? "Unknown"
         let map = attributeDict["map"]
@@ -75,10 +75,12 @@ extension RegionXMLParser: XMLParserDelegate {
         let newRegion = Region(name: name, map: map, type: type, translate: translate)
         
         if let parentRegion = regionStack.last {
-            var updatedParent = parentRegion
+            let updatedParent = parentRegion
             updatedParent.subregions.append(newRegion)
             regionStack[regionStack.count - 1] = updatedParent
-            newRegion.parent = parentRegion
+            if parentRegion.name != "Europe" {
+                newRegion.parent = parentRegion
+            }
         } else {
             regions.append(newRegion)
         }

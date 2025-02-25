@@ -81,7 +81,6 @@ public final class MapTableViewCell: UITableViewCell {
         progressView.progressTintColor = .blue
         progressView.trackTintColor = .lightGray
         progressView.isHidden = true
-        progressView.progress = 0.5
         
         return progressView
     }()

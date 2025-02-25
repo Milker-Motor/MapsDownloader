@@ -37,8 +37,8 @@ extension MapsLoaderPresentationAdapter: DownloadMapsViewControllerDelegate {
 }
 
 extension MapsLoaderPresentationAdapter: MapCellControllerDelegate {
-    func didRequestMap(map: Map) {
-        mapLoader.load(model: map)
+    func didRequestMap(map: Map, progress: @escaping (Progress) -> Void) {
+        let task = mapLoader.load(model: map, progress: progress)
     }
     
     func didCancelIMapRequest(map: Map) {

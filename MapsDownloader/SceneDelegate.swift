@@ -13,7 +13,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private lazy var regionLoader = LocalMapsLoader()
     private lazy var mapLoader = RemoteMapLoader()
-    
     private lazy var navigationController = {
         let nc = UINavigationController(
             rootViewController: DownloadMapsComposer.mapsComposedWith(
@@ -46,76 +45,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func showMaps(for map: Map) {
-//        let existedMaps = ExistedMaps(maps: map.maps)
-        let maps = DownloadMapsComposer.mapsDetail(with: map.maps, mapLoader: mapLoader, regionLoader: regionLoader)
+        let maps = DownloadMapsComposer.mapsDetail(
+            with: map.maps,
+            mapLoader: mapLoader,
+            regionLoader: regionLoader
+        )
         maps.title = map.name
         navigationController.pushViewController(maps, animated: true)
-//        maps.display(<#T##sections: [CellController]...##[CellController]#>)
-    }
-}
-//
-//private class ExistedMaps: MapsLoader {
-//    let maps: [Map]
-//    init(maps: [Map]) {
-//        self.maps = maps
-//    }
-//    
-//    func load(completion: @escaping (MapsLoader.Result) -> Void) {
-//        completion(.success(maps))
-//    }
-//}
-
-public protocol MapsErrorView {
-    func display(_ viewModel: MapsErrorViewModel)
-}
-
-public struct MapsErrorViewModel {
-    public let text: String
-}
-
-public protocol MapsLoadingView {
-    func display(_ viewModel: MapsLoadingViewModel)
-}
-
-public struct MapsLoadingViewModel {
-    public let isLoading: Bool
-}
-
-public protocol MapView {
-    func display(_ viewModel: MapsViewModel)
-}
-
-public struct StorageViewModel {
-    let freeSpace: NSNumber
-    let totalSize: NSNumber
-}
-
-public struct MapsViewModel {
-    let maps: [Map]
-}
-
-final class WeakRefVirtualProxy<T: AnyObject> {
-    private weak var object: T?
-    
-    init(_ object: T) {
-        self.object = object
-    }
-}
-
-extension WeakRefVirtualProxy: MapsLoadingView where T: MapsLoadingView {
-    func display(_ viewModel: MapsLoadingViewModel) {
-        object?.display(viewModel)
-    }
-}
-
-extension WeakRefVirtualProxy: MapsErrorView where T: MapsErrorView {
-    func display(_ viewModel: MapsErrorViewModel) {
-        object?.display(viewModel)
-    }
-}
-
-extension WeakRefVirtualProxy: MapView where T: MapView {
-    func display(_ viewModel: MapsViewModel) {
-        object?.display(viewModel)
     }
 }

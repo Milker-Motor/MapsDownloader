@@ -113,7 +113,7 @@ final class MapsDownloaderUIIntegrationTests: XCTestCase {
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: DownloadMapsViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
-        let sut = DownloadMapsComposer.mapsComposedWith(regionLoader: loader)
+        let sut = DownloadMapsComposer.mapsComposedWith(regionLoader: loader, mapLoader: loader)
         
         trackForMemoryLeaks(sut, file: file, line: line)
         trackForMemoryLeaks(loader, file: file, line: line)
@@ -122,7 +122,7 @@ final class MapsDownloaderUIIntegrationTests: XCTestCase {
     }
     
     func makeMap(name: String) -> Map {
-        Map(name: name, maps: [])
+        Map(name: name, parent: nil, maps: [])
     }
     
     func assertThat(_ sut: DownloadMapsViewController, isRendering maps: [Map], file: StaticString = #file, line: UInt = #line) {
@@ -165,6 +165,18 @@ class LoaderSpy: RegionLoader {
     func completeMapsLoading(with error: Error, at index: Int = 0) {
         mapsRequests[index](.failure(error))
     }
+}
+
+extension LoaderSpy: MapLoader {
+    func load(model: MapsDownloader.Map, progress: @escaping (Progress) -> Void) {
+        
+    }
+    
+    func cancel(model: MapsDownloader.Map) {
+        
+    }
+    
+    
 }
 
 var anyNSError: NSError {

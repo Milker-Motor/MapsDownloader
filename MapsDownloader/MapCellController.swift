@@ -8,10 +8,9 @@
 import UIKit
 
 public protocol MapCellControllerDelegate {
-    func didRequestMap(map: Map)
+    func didRequestMap(map: Map, progress: @escaping (Progress) -> Void)
     func didCancelIMapRequest(map: Map)
 }
-
 
 public class MapCellController: NSObject {
     private let model: Map
@@ -19,20 +18,35 @@ public class MapCellController: NSObject {
     private let selection: (Map) -> Void
     private let delegate: MapCellControllerDelegate
     private var cell: MapTableViewCell?
+    private var cellState: MapTableViewCell.State
     
     public init(model: Map, header: String, delegate: MapCellControllerDelegate, selection: @escaping (Map) -> Void) {
         self.model = model
         self.header = header
         self.selection = selection
         self.delegate = delegate
+        self.cellState = model.isMapAvailable ? .notRun : .default
     }
     
-    func load() {
-        delegate.didRequestMap(map: model)
+    private func load() {
+        cellState = .downloading
+        delegate.didRequestMap(map: model) { [weak cell] progress in
+            DispatchQueue.main.async {
+                cell?.progressView.progress = Float(progress.fractionCompleted)
+                UIView.animate(withDuration: 0.2) {
+                    
+                    cell?.layoutIfNeeded()
+                }
+                
+                cell?.state = .downloading
+            }
+        }
     }
     
     func cancelLoad() {
         releaseCellForReuse()
+        delegate.didCancelIMapRequest(map: model)
+        cellState = .notRun
 //        delegate.didCancelImageRequest()
     }
 }
@@ -45,11 +59,10 @@ extension MapCellController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(MapTableViewCell.self)
         
-        cell.state = model.isMapAvailable ? .downloading : .default
+        cell.state = cellState
         
         cell.actionButton.addAction(UIAction { [weak self] _ in
-            guard let self else { return }
-            self.delegate.didRequestMap(map: self.model)
+            self?.load()
         }, for: .touchUpInside)
         
         cell.nameLabel.text = model.name
@@ -62,6 +75,12 @@ extension MapCellController: UITableViewDataSource {
         cell = nil
     }
 }
+
+//private extension Map {
+//    var cellState: MapTableViewCell.State {
+//        
+//    }
+//}
 
 extension MapCellController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
