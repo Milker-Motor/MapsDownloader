@@ -48,14 +48,12 @@ final class RemoteMapLoader: MapLoader {
         guard let downloadTask else { return nil }
         
         let task = httpClient.get(from: downloadTask.url) { [weak self] response in
-//            DispatchQueue.main.async {
-                switch response {
-                case .success:
-                    downloadTask.completion(nil)
-                case let .failure(error):
-                    downloadTask.completion(error)
-                }
-//            }
+            switch response {
+            case .success:
+                downloadTask.completion(nil)
+            case let .failure(error):
+                downloadTask.completion(error)
+            }
             self?.tasksToDownload.removeAll { $0.url == downloadTask.url }
             self?.loadNext(self?.tasksToDownload.first)
         }

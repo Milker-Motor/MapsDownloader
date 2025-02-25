@@ -25,34 +25,42 @@ public class MapCellController: NSObject {
     private let delegate: MapCellControllerDelegate
     private var cell: MapTableViewCell?
     
+    private var state: MapTableViewCell.State {
+        didSet {
+            cell?.onState?(state)
+        }
+    }
+    
     public init(model: MapCellModel, header: String, delegate: MapCellControllerDelegate, selection: @escaping (MapCellModel) -> Void) {
         self.model = model
         self.header = header
         self.selection = selection
         self.delegate = delegate
+        self.state = model.isMapAvailable ? .notRun : .default
     }
     
     private func load() {
-        let cell = cell
-        cell?.state = .downloading
-        delegate.didRequestMap(cellModel: model, progress: { [weak self] progress in
-            guard self?.cell == cell else { return }
+        state = .downloading
+        delegate.didRequestMap(cellModel: model, progress: { [weak self, weak cell] progress in
             DispatchQueue.main.async {
+                guard self?.cell == cell else { return }
                 cell?.progressView.progress = Float(progress.fractionCompleted)
                 UIView.animate(withDuration: 0.2) {
                     cell?.layoutIfNeeded()
                 }
             }
-        }, completion: { [weak self] error in
-            guard self?.cell == cell else { return }
-            
-            self?.cell?.state = error == nil ? .downloaded : .notRun
+        }, completion: { [weak self, weak cell] error in
+            guard cell == self?.cell else{ return }
+            DispatchQueue.main.async {
+                self?.state = error == nil ? .downloaded : .notRun
+            }
         })
     }
     
     func cancelLoad() {
-        cell?.state = .notRun
+        state = .notRun
         delegate.didCancelIMapRequest(model: model)
+        
     }
 }
 
@@ -65,10 +73,13 @@ extension MapCellController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(MapTableViewCell.self)
         
         cell.nameLabel.text = model.name
-        cell.state = model.isMapAvailable ? .notRun : .default
+        cell.onState?(state)
+        
+        cell.actionButton.removeTarget(nil, action: nil, for: .touchUpInside)
+        
         cell.actionButton.addAction(UIAction { [weak self] _ in
             guard let self else { return }
-            if self.cell?.state == .downloading {
+            if self.state == .downloading {
                 self.cancelLoad()
             } else {
                 self.load()

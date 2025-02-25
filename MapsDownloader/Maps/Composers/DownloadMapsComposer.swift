@@ -25,7 +25,7 @@ public final class DownloadMapsComposer {
 
         let presentationAdapter = MapsLoaderPresentationAdapter(
             regionLoader: MainQueueDispatchDecorator(decoratee: regionLoader),
-            mapLoader: mapLoader,
+            mapLoader: MainQueueDispatchDecorator(decoratee: mapLoader),
             selection: selection
         )
         let mapsController = makeDownloadMapsViewController(delegate: presentationAdapter)
@@ -33,8 +33,8 @@ public final class DownloadMapsComposer {
         presentationAdapter.presenter = DownloadMapsPresenter(
             mapView: MapViewAdapter(
                 controller: mapsController.mapsController,
-                regionLoader: regionLoader,
-                mapLoader: mapLoader,
+                regionLoader: MainQueueDispatchDecorator(decoratee: regionLoader),
+                mapLoader: MainQueueDispatchDecorator(decoratee: mapLoader),
                 selection: selection
             ),
             loadingView: WeakRefVirtualProxy(mapsController),
