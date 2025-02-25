@@ -18,34 +18,30 @@ public class MapCellController: NSObject {
     private let selection: (Map) -> Void
     private let delegate: MapCellControllerDelegate
     private var cell: MapTableViewCell?
-    private var cellState: MapTableViewCell.State
     
     public init(model: Map, header: String, delegate: MapCellControllerDelegate, selection: @escaping (Map) -> Void) {
         self.model = model
         self.header = header
         self.selection = selection
         self.delegate = delegate
-        self.cellState = model.isMapAvailable ? .notRun : .default
     }
     
     private func load() {
-        cellState = .downloading
+        cell?.state = .downloading
         delegate.didRequestMap(map: model) { [weak cell] progress in
             DispatchQueue.main.async {
                 cell?.progressView.progress = Float(progress.fractionCompleted)
                 UIView.animate(withDuration: 0.2) {
                     cell?.layoutIfNeeded()
                 }
-                
-                cell?.state = .downloading
             }
         }
     }
     
     func cancelLoad() {
-        releaseCellForReuse()
+        cell?.state = .notRun
         delegate.didCancelIMapRequest(map: model)
-        cellState = .notRun
+//        releaseCellForReuse()
     }
 }
 
@@ -57,10 +53,15 @@ extension MapCellController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(MapTableViewCell.self)
         
-        cell.state = cellState
+        cell.state = model.isMapAvailable ? .notRun : .default
         
         cell.actionButton.addAction(UIAction { [weak self] _ in
-            self?.load()
+            guard let self else { return }
+            if self.cell?.state == .downloading {
+                self.cancelLoad()
+            } else {
+                self.load()
+            }
         }, for: .touchUpInside)
         
         cell.nameLabel.text = model.name
@@ -69,9 +70,9 @@ extension MapCellController: UITableViewDataSource {
         return cell
     }
     
-    private func releaseCellForReuse() {
-        cell = nil
-    }
+//    private func releaseCellForReuse() {
+//        cell = nil
+//    }
 }
 
 extension MapCellController: UITableViewDelegate {

@@ -18,6 +18,7 @@ public final class MapTableViewCell: UITableViewCell {
     
     var state: State = .default {
         didSet {
+            print(state)
             switch state {
             case .default:
                 accessoryType = .disclosureIndicator
@@ -40,10 +41,12 @@ public final class MapTableViewCell: UITableViewCell {
             case .notRun:
                 accessoryType = .none
                 progressView.isHidden = true
+                progressView.progress = 0
                 actionButton.setImage(UIImage(named: "ic_custom_download"), for: .normal)
                 iconImageView.tintColor = .iconMapDefault
                 selectionStyle = .none
             }
+            layoutIfNeeded()
         }
     }
     
