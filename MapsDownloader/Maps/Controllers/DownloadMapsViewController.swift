@@ -67,8 +67,6 @@ public final class DownloadMapsViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .clear
-        
         setupUI()
         
         onViewIsAppearing = { vc in
@@ -85,12 +83,12 @@ public final class DownloadMapsViewController: UIViewController {
     }
     
     private func setupUI() {
+        view.backgroundColor = .clear
         view.addSubview(topBanner)
         topBanner.addSubview(titleLabel)
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
-        
         NSLayoutConstraint.activate([
             topBanner.topAnchor.constraint(equalTo: view.topAnchor),
             topBanner.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -131,82 +129,11 @@ extension DownloadMapsViewController: MapsErrorView {
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { [weak self] _ in
             self?.errorView = nil
-            
         }
         
         alertController.addAction(retry)
         alertController.addAction(cancel)
         errorView = alertController
         present(alertController, animated: true)
-    }
-}
-
-final class DetailMapViewAdapter: MapView {
-    private weak var controller: MapsTableViewController?
-    private let selection: (Map) -> Void
-    private let regionLoader: RegionLoader
-    private let mapLoader: MapLoader
-    
-    init(controller: MapsTableViewController, regionLoader: RegionLoader, mapLoader: MapLoader, selection: @escaping (Map) -> Void) {
-        self.controller = controller
-        self.regionLoader = regionLoader
-        self.mapLoader = mapLoader
-        self.selection = selection
-    }
-    
-    public func display(_ viewModel: MapsViewModel) {
-        let mapsAdapter = MapsLoaderPresentationAdapter(regionLoader: regionLoader, mapLoader: mapLoader, selection: selection)
-        
-        let mapsSection = viewModel.maps.map { viewModel in
-            CellController(id: viewModel, MapCellController(model: viewModel, header: "REGIONS", delegate: mapsAdapter, selection: selection))
-        }
-        
-        controller?.display(mapsSection)
-        
-    }
-}
-
-final class MapViewAdapter: MapView {
-    private weak var controller: MapsTableViewController?
-    private let selection: (Map) -> Void
-    private let regionLoader: RegionLoader
-    private let mapLoader: MapLoader
-    
-    init(controller: MapsTableViewController, regionLoader: RegionLoader, mapLoader: MapLoader, selection: @escaping (Map) -> Void) {
-        self.controller = controller
-        self.selection = selection
-        self.regionLoader = regionLoader
-        self.mapLoader = mapLoader
-    }
-    
-    public func display(_ viewModel: MapsViewModel) {
-        let freeSpaceSection = [CellController(id: UUID(), StorageCellController())]
-        let mapsAdapter = MapsLoaderPresentationAdapter(regionLoader: regionLoader, mapLoader: mapLoader, selection: selection)
-        let mapsSection = viewModel.maps.map { viewModel in
-            CellController(id: viewModel, MapCellController(model: viewModel, header: "EUROPE", delegate: mapsAdapter, selection: selection))
-        }
-        
-        controller?.display(freeSpaceSection, mapsSection)
-        
-    }
-}
-
-//public struct MapViewModel: Hashable {
-//    public let name: String
-//    
-//    public init(name: String) {
-//        self.name = name
-//    }
-//}
-
-extension UITableView {
-    func register(_ object: UITableViewCell.Type) {
-        register(object, forCellReuseIdentifier: object.classString)
-    }
-}
-
-public extension NSObject {
-    static var classString: String {
-        String(describing: self.self)
     }
 }

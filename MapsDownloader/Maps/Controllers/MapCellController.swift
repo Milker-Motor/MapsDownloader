@@ -34,7 +34,6 @@ public class MapCellController: NSObject {
             DispatchQueue.main.async {
                 cell?.progressView.progress = Float(progress.fractionCompleted)
                 UIView.animate(withDuration: 0.2) {
-                    
                     cell?.layoutIfNeeded()
                 }
                 
@@ -47,7 +46,6 @@ public class MapCellController: NSObject {
         releaseCellForReuse()
         delegate.didCancelIMapRequest(map: model)
         cellState = .notRun
-//        delegate.didCancelImageRequest()
     }
 }
 
@@ -75,12 +73,6 @@ extension MapCellController: UITableViewDataSource {
         cell = nil
     }
 }
-
-//private extension Map {
-//    var cellState: MapTableViewCell.State {
-//        
-//    }
-//}
 
 extension MapCellController: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

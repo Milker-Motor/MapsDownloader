@@ -1,0 +1,69 @@
+//
+//  RemoteMapLoader.swift
+//  MapsDownloader
+//
+//  Created by Oleksii Lytvynov-Bohdanov on 25.02.2025.
+//
+
+import Foundation
+import NetworkingService
+
+private final class DownloadTask {
+    let url: URL
+    let progress: (Progress) -> Void
+    var task: HTTPClientTask?
+    
+    init(url: URL, progress: @escaping (Progress) -> Void, task: HTTPClientTask? = nil) {
+        self.url = url
+        self.progress = progress
+        self.task = task
+    }
+}
+
+final class RemoteMapLoader: MapLoader {
+    private var tasksToDownload: [DownloadTask] = []
+    private lazy var baseURL = URL(string: "https://download.osmand.net/download")!
+    
+    private var observation: NSKeyValueObservation?
+    
+    private lazy var httpClient: HTTPClient = {
+        URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
+    }()
+
+    func load(model: Map, progress: @escaping (Progress) -> Void) {
+        let url = MapEndpoint.get(holder: model.parent, region: model.name).url(baseURL: baseURL)
+        let newTask = DownloadTask(url: url, progress: progress)
+        tasksToDownload.append(newTask)
+        if tasksToDownload.count == 1 {
+            loadNext(newTask)
+        } else {
+            progress(Progress())
+        }
+    }
+    
+    @discardableResult
+    private func loadNext(_ downloadTask: DownloadTask?) -> HTTPClientTask? {
+        guard let downloadTask else { return nil }
+        
+        let task = httpClient.get(from: downloadTask.url) { [weak self] response in
+            self?.tasksToDownload.removeAll { $0.url == downloadTask.url }
+            self?.loadNext(self?.tasksToDownload.first)
+        }
+        downloadTask.task = task
+        
+        observation = task.progress.observe(\.fractionCompleted, options: [.new]) { prog, _ in
+            downloadTask.progress(prog)
+        }
+        
+        return task
+    }
+    
+    func cancel(model: Map) {
+        let url = MapEndpoint.get(holder: model.parent, region: model.name).url(baseURL: baseURL)
+        
+        if let downloadTask = tasksToDownload.first(where: { $0.url == url }) {
+            downloadTask.task?.cancel()
+            tasksToDownload.removeAll { $0.url == downloadTask.url }
+        }
+    }
+}
