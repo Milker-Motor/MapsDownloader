@@ -11,7 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     
-    private lazy var regionLoader = LocalMapsLoader()
+    private lazy var regionLoader = LocalRegionLoader()
     private lazy var mapLoader = RemoteMapLoader()
     private lazy var navigationController = {
         let nc = UINavigationController(

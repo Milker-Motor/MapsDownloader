@@ -24,7 +24,8 @@ final class MapViewAdapter: MapView {
         let freeSpaceSection = [CellController(id: UUID(), StorageCellController())]
         let mapsAdapter = MapsLoaderPresentationAdapter(regionLoader: regionLoader, mapLoader: mapLoader, selection: selection)
         let mapsSection = viewModel.maps.map { viewModel in
-            CellController(id: viewModel, MapCellController(model: viewModel, header: "EUROPE", delegate: mapsAdapter, selection: selection))
+            CellController(id: viewModel, MapCellController(model: MapCellModel(name: viewModel.name, parent: viewModel.parent, isMapAvailable: viewModel.isMapAvailable), header: "EUROPE", delegate: mapsAdapter, selection: { [weak self] _ in self?.selection(viewModel)
+            }))
         }
         
         controller?.display(freeSpaceSection, mapsSection)

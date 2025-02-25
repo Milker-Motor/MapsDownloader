@@ -32,8 +32,8 @@ final class RemoteMapLoader: MapLoader {
         URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
     }()
 
-    func load(model: Map, progress: @escaping (Progress) -> Void, completion: @escaping (Error?) -> Void) {
-        let url = MapEndpoint.get(holder: model.parent, region: model.name).url(baseURL: baseURL)
+    func load(region: String, parentRegion: String?, progress: @escaping (Progress) -> Void, completion: @escaping ((any Error)?) -> Void) {
+        let url = MapEndpoint.get(parentRegion: parentRegion, region: region).url(baseURL: baseURL)
         let newTask = DownloadTask(url: url, progress: progress, completion: completion)
         tasksToDownload.append(newTask)
         if tasksToDownload.count == 1 {
@@ -68,8 +68,8 @@ final class RemoteMapLoader: MapLoader {
         return task
     }
     
-    func cancel(model: Map) {
-        let url = MapEndpoint.get(holder: model.parent, region: model.name).url(baseURL: baseURL)
+    func cancel(region: String, parentRegion: String?) {
+        let url = MapEndpoint.get(parentRegion: parentRegion, region: region).url(baseURL: baseURL)
         
         if let downloadTask = tasksToDownload.first(where: { $0.url == url }) {
             downloadTask.task?.cancel()

@@ -8,6 +8,6 @@
 import Foundation
 
 public protocol MapLoader {
-    func load(model: Map, progress: @escaping (Progress) -> Void, completion: @escaping (Error?) -> Void)
-    func cancel(model: Map)
+    func load(region: String, parentRegion: String?, progress: @escaping (Progress) -> Void, completion: @escaping (Error?) -> Void)
+    func cancel(region: String, parentRegion: String?)
 }

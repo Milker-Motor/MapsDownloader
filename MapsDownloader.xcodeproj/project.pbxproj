@@ -29,7 +29,7 @@
 		493296A52D686C50003D8397 /* DownloadMapsComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296A42D686C50003D8397 /* DownloadMapsComposer.swift */; };
 		493296A72D68A788003D8397 /* MainQueueDispatchDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296A62D68A788003D8397 /* MainQueueDispatchDecorator.swift */; };
 		493296A92D68ACEA003D8397 /* MapCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296A82D68ACEA003D8397 /* MapCellController.swift */; };
-		493296AB2D68BAF5003D8397 /* LocalMapsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296AA2D68BAF5003D8397 /* LocalMapsLoader.swift */; };
+		493296AB2D68BAF5003D8397 /* LocalRegionLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296AA2D68BAF5003D8397 /* LocalRegionLoader.swift */; };
 		493296AD2D690677003D8397 /* MapsDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296AC2D690677003D8397 /* MapsDetailTableViewController.swift */; };
 		493296AF2D6910D7003D8397 /* StorageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296AE2D6910D7003D8397 /* StorageTableViewCell.swift */; };
 		493296B12D69130B003D8397 /* StorageCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493296B02D69130B003D8397 /* StorageCellController.swift */; };
@@ -88,7 +88,7 @@
 		493296A42D686C50003D8397 /* DownloadMapsComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadMapsComposer.swift; sourceTree = "<group>"; };
 		493296A62D68A788003D8397 /* MainQueueDispatchDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQueueDispatchDecorator.swift; sourceTree = "<group>"; };
 		493296A82D68ACEA003D8397 /* MapCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCellController.swift; sourceTree = "<group>"; };
-		493296AA2D68BAF5003D8397 /* LocalMapsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMapsLoader.swift; sourceTree = "<group>"; };
+		493296AA2D68BAF5003D8397 /* LocalRegionLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRegionLoader.swift; sourceTree = "<group>"; };
 		493296AC2D690677003D8397 /* MapsDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsDetailTableViewController.swift; sourceTree = "<group>"; };
 		493296AE2D6910D7003D8397 /* StorageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTableViewCell.swift; sourceTree = "<group>"; };
 		493296B02D69130B003D8397 /* StorageCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCellController.swift; sourceTree = "<group>"; };
@@ -156,7 +156,6 @@
 				491F465A2D65E17E00D3E631 /* SceneDelegate.swift */,
 				49BCFA5E2D6DEDCD00B97BC5 /* Helpers */,
 				49BCFA472D6DEACC00B97BC5 /* Maps */,
-				493296862D6749CC003D8397 /* Maps Feature */,
 				491F46612D65E18100D3E631 /* Assets.xcassets */,
 				491F46632D65E18100D3E631 /* LaunchScreen.storyboard */,
 				491F46662D65E18100D3E631 /* Info.plist */,
@@ -191,13 +190,6 @@
 				491F46BC2D65FD8F00D3E631 /* NetworkingService.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		493296862D6749CC003D8397 /* Maps Feature */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Maps Feature";
 			sourceTree = "<group>";
 		};
 		4932968D2D676215003D8397 /* Helpers */ = {
@@ -289,7 +281,7 @@
 				497530932D6A869F00779BED /* MapLoader.swift */,
 				49BCFA6A2D6DF06300B97BC5 /* MapEndpoint.swift */,
 				49BCFA682D6DF04B00B97BC5 /* RemoteMapLoader.swift */,
-				493296AA2D68BAF5003D8397 /* LocalMapsLoader.swift */,
+				493296AA2D68BAF5003D8397 /* LocalRegionLoader.swift */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -400,7 +392,7 @@
 				49BCFA672D6DEFD300B97BC5 /* Map.swift in Sources */,
 				493296AD2D690677003D8397 /* MapsDetailTableViewController.swift in Sources */,
 				49BCFA5D2D6DEDA100B97BC5 /* MapViewAdapter.swift in Sources */,
-				493296AB2D68BAF5003D8397 /* LocalMapsLoader.swift in Sources */,
+				493296AB2D68BAF5003D8397 /* LocalRegionLoader.swift in Sources */,
 				49BCFA622D6DEE2300B97BC5 /* NSObject+Extensions.swift in Sources */,
 				491F465D2D65E17E00D3E631 /* DownloadMapsViewController.swift in Sources */,
 				493296A52D686C50003D8397 /* DownloadMapsComposer.swift in Sources */,

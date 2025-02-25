@@ -26,8 +26,8 @@ extension MapsLoaderPresentationAdapter: DownloadMapsViewControllerDelegate {
         presenter?.didStartLoadingMaps()
         regionLoader.load { [weak presenter] result in
             switch result {
-            case let .success(maps):
-                presenter?.didFinishLoadingMaps(with: maps)
+            case let .success(regions):
+                presenter?.didFinishLoadingMaps(with: regions.toMap())
                 
             case let .failure(error):
                 presenter?.didFinishLoadingMaps(with: error)
@@ -36,12 +36,20 @@ extension MapsLoaderPresentationAdapter: DownloadMapsViewControllerDelegate {
     }
 }
 
+extension Array where Element == Region {
+    func toMap() -> [Map] {
+        map { region in
+            Map(name: region.name, parent: region.parent, maps: region.regions.toMap())
+        }
+    }
+}
+
 extension MapsLoaderPresentationAdapter: MapCellControllerDelegate {
-    func didRequestMap(map: Map, progress: @escaping (Progress) -> Void, completion: @escaping ((any Error)?) -> Void) {
-        let task = mapLoader.load(model: map, progress: progress, completion: completion)
+    func didRequestMap(cellModel: MapCellModel, progress: @escaping (Progress) -> Void, completion: @escaping ((any Error)?) -> Void) {
+        let task = mapLoader.load(region: cellModel.name, parentRegion: cellModel.parent, progress: progress, completion: completion)
     }
     
-    func didCancelIMapRequest(map: Map) {
-        mapLoader.cancel(model: map)
+    func didCancelIMapRequest(model: MapCellModel) {
+        mapLoader.cancel(region: model.name, parentRegion: model.parent)
     }
 }

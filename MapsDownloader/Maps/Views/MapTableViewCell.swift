@@ -57,7 +57,7 @@ public final class MapTableViewCell: UITableViewCell {
         let view = UIView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        view.heightAnchor.constraint(greaterThanOrEqualToConstant: 32).isActive = true
         view.widthAnchor.constraint(equalToConstant: 32).isActive = true
         view.addSubviewAndPinToCenter(iconImageView)
         
@@ -77,7 +77,6 @@ public final class MapTableViewCell: UITableViewCell {
         
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textColor = .darkText
-//        label.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         return label
     }()
@@ -137,6 +136,22 @@ public final class MapTableViewCell: UITableViewCell {
         container.addArrangedSubview(actionButton)
         
         backgroundColor = .tableCellBackground
-        contentView.addSubviewAndPin(container, padding: 8)
+//        contentView.addSubviewAndPin(container, padding: 6)
+        
+        contentView.addSubview(container)
+        container.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        container.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 8).isActive = true
+        container.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8).isActive = true
+        
+        let topAnchor = container.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8)
+        let bottomAnchor = container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+        
+        topAnchor.priority = UILayoutPriority(999)
+        bottomAnchor.priority = UILayoutPriority(999)
+        
+        topAnchor.isActive = true
+        bottomAnchor.isActive = true
     }
 }

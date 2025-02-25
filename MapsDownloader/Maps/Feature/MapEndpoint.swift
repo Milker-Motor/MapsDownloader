@@ -8,7 +8,7 @@
 import Foundation
 
 public enum MapEndpoint {
-    case get(holder: String?, region: String)
+    case get(parentRegion: String?, region: String)
     
     public func url(baseURL: URL) -> URL {
         switch self {

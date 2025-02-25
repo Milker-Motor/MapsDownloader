@@ -8,18 +8,24 @@
 import UIKit
 
 public protocol MapCellControllerDelegate {
-    func didRequestMap(map: Map, progress: @escaping (Progress) -> Void, completion: @escaping(Error?) -> Void)
-    func didCancelIMapRequest(map: Map)
+    func didRequestMap(cellModel: MapCellModel, progress: @escaping (Progress) -> Void, completion: @escaping(Error?) -> Void)
+    func didCancelIMapRequest(model: MapCellModel)
+}
+
+public struct MapCellModel {
+    let name: String
+    let parent: String?
+    let isMapAvailable: Bool
 }
 
 public class MapCellController: NSObject {
-    private let model: Map
+    private let model: MapCellModel
     private let header: String
-    private let selection: (Map) -> Void
+    private let selection: (MapCellModel) -> Void
     private let delegate: MapCellControllerDelegate
     private var cell: MapTableViewCell?
     
-    public init(model: Map, header: String, delegate: MapCellControllerDelegate, selection: @escaping (Map) -> Void) {
+    public init(model: MapCellModel, header: String, delegate: MapCellControllerDelegate, selection: @escaping (MapCellModel) -> Void) {
         self.model = model
         self.header = header
         self.selection = selection
@@ -29,7 +35,7 @@ public class MapCellController: NSObject {
     private func load() {
         let cell = cell
         cell?.state = .downloading
-        delegate.didRequestMap(map: model, progress: { [weak self] progress in
+        delegate.didRequestMap(cellModel: model, progress: { [weak self] progress in
             guard self?.cell == cell else { return }
             DispatchQueue.main.async {
                 cell?.progressView.progress = Float(progress.fractionCompleted)
@@ -46,8 +52,7 @@ public class MapCellController: NSObject {
     
     func cancelLoad() {
         cell?.state = .notRun
-        delegate.didCancelIMapRequest(map: model)
-//        releaseCellForReuse()
+        delegate.didCancelIMapRequest(model: model)
     }
 }
 
@@ -75,10 +80,6 @@ extension MapCellController: UITableViewDataSource {
         
         return cell
     }
-    
-//    private func releaseCellForReuse() {
-//        cell = nil
-//    }
 }
 
 extension MapCellController: UITableViewDelegate {

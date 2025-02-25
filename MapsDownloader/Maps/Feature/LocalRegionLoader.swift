@@ -7,11 +7,11 @@
 
 import Foundation
 
-public class LocalMapsLoader {}
+public class LocalRegionLoader {}
 
 struct XMLParsingError: Error {}
 
-extension LocalMapsLoader: RegionLoader {
+extension LocalRegionLoader: RegionLoader {
     public func load(completion: @escaping (RegionLoader.Result) -> Void) {
         let parser = RegionXMLParser()
         guard let xmlPath = Bundle.main.path(forResource: "regions", ofType: "xml"),
@@ -25,23 +25,23 @@ extension LocalMapsLoader: RegionLoader {
     }
 }
 
-extension Array where Element == Region {
-    func toMaps() -> [Map] {
+extension Array where Element == RegionXML {
+    func toMaps() -> [Region] {
         map { region in
-            Map(name: region.name, parent: region.parent?.name, maps: region.subregions.toMaps())
+            Region(name: region.name, parent: region.parent?.name, regions: region.subregions.toMaps())
         }
     }
 }
 
-private final class Region {
+private final class RegionXML {
     let name: String
     let map: String?
     let type: String?
     let translate: String?
-    var parent: Region?
-    var subregions: [Region]
+    var parent: RegionXML?
+    var subregions: [RegionXML]
     
-    init(name: String, map: String?, type: String?, translate: String?, subregions: [Region] = []) {
+    init(name: String, map: String?, type: String?, translate: String?, subregions: [RegionXML] = []) {
         self.name = name
         self.map = map
         self.type = type
@@ -51,11 +51,11 @@ private final class Region {
 }
 
 private class RegionXMLParser: NSObject {
-    private var regions: [Region] = []
-    private var currentRegion: Region?
-    private var regionStack: [Region] = []
+    private var regions: [RegionXML] = []
+    private var currentRegion: RegionXML?
+    private var regionStack: [RegionXML] = []
     
-    func parseRegions(from xmlData: Data) -> [Region]? {
+    func parseRegions(from xmlData: Data) -> [RegionXML]? {
         let parser = XMLParser(data: xmlData)
         parser.delegate = self
         return parser.parse() ? regions[1].subregions : nil
@@ -66,13 +66,13 @@ extension RegionXMLParser: XMLParserDelegate {
     func parser(_ parser: XMLParser, didStartElement elementName: String,
                 namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String]) {
         
-        guard elementName == "region"/*, attributeDict["name"]?.lowercased() != "europe"*/ else { return }
+        guard elementName == "region" else { return }
         
         let name = attributeDict["name"]?.capitalized ?? "Unknown"
         let map = attributeDict["map"]
         let type = attributeDict["type"]
         let translate = attributeDict["translate"]
-        let newRegion = Region(name: name, map: map, type: type, translate: translate)
+        let newRegion = RegionXML(name: name, map: map, type: type, translate: translate)
         
         if let parentRegion = regionStack.last {
             let updatedParent = parentRegion
