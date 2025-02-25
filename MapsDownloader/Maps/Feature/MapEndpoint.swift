@@ -13,7 +13,7 @@ public enum MapEndpoint {
     public func url(baseURL: URL) -> URL {
         switch self {
         case let .get(holder, region):
-            let fileName = [holder, region, "europe", "2"].compactMap { $0 }.joined(separator: "_") + ".obf.zip"
+            let fileName = [holder, region, "europe", "2"].compactMap { $0 }.joined(separator: "_").capitalized(with: nil) + ".obf.zip"
             var components = URLComponents()
             components.scheme = baseURL.scheme
             components.host = baseURL.host

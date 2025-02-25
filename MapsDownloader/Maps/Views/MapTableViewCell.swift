@@ -18,7 +18,6 @@ public final class MapTableViewCell: UITableViewCell {
     
     var state: State = .default {
         didSet {
-            print(state)
             switch state {
             case .default:
                 accessoryType = .disclosureIndicator
@@ -26,17 +25,20 @@ public final class MapTableViewCell: UITableViewCell {
                 actionButton.setImage(nil, for: .normal)
                 iconImageView.tintColor = .iconMapDefault
                 selectionStyle = .default
+                actionButton.isHidden = true
             case .downloading:
                 accessoryType = .none
                 progressView.isHidden = false
                 actionButton.setImage(UIImage(systemName: "stop.circle"), for: .normal)
                 iconImageView.tintColor = .iconMapDefault
                 selectionStyle = .none
+                actionButton.isHidden = false
             case .downloaded:
                 accessoryType = .none
                 progressView.isHidden = true
                 actionButton.setImage(nil, for: .normal)
                 iconImageView.tintColor = .iconMapDownloaded
+                actionButton.isHidden = true
                 selectionStyle = .none
             case .notRun:
                 accessoryType = .none
@@ -45,6 +47,7 @@ public final class MapTableViewCell: UITableViewCell {
                 actionButton.setImage(UIImage(named: "ic_custom_download"), for: .normal)
                 iconImageView.tintColor = .iconMapDefault
                 selectionStyle = .none
+                actionButton.isHidden = false
             }
             layoutIfNeeded()
         }
@@ -54,6 +57,7 @@ public final class MapTableViewCell: UITableViewCell {
         let view = UIView()
         
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: 32).isActive = true
         view.widthAnchor.constraint(equalToConstant: 32).isActive = true
         view.addSubviewAndPinToCenter(iconImageView)
         
@@ -73,6 +77,7 @@ public final class MapTableViewCell: UITableViewCell {
         
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textColor = .darkText
+//        label.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         return label
     }()
