@@ -36,20 +36,20 @@ final class MapsDownloaderUIIntegrationTests: XCTestCase {
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading completes")
     }
     
-//    func test_loadMapsCompletion_rendersSuccessfullyLoadedMaps() {
-//        let map0 = makeMap(name: "Albania")
-//        let map1 = makeMap(name: "Latvia")
-//        let map2 = makeMap(name: "Norway")
-//        let map3 = makeMap(name: "Sweden")
-//        
-//        let (sut, loader) = makeSUT()
-//        
-//        sut.simulateAppearance()
-//        assertThat(sut, isRendering: [])
-//        
-//        loader.completeMapsLoading(with: [map0, map1, map2, map3], at: 0)
-//        assertThat(sut, isRendering: [map0, map1, map2, map3])
-//    }
+    func test_loadMapsCompletion_rendersSuccessfullyLoadedMaps() {
+        let map0 = makeMap(name: "Albania")
+        let map1 = makeMap(name: "Latvia")
+        let map2 = makeMap(name: "Norway")
+        let map3 = makeMap(name: "Sweden")
+        
+        let (sut, loader) = makeSUT()
+        
+        sut.simulateAppearance()
+        assertThat(sut, isRendering: [])
+        
+        loader.completeMapsLoading(with: [map0, map1, map2, map3], at: 0)
+        assertThat(sut, isRendering: [map0, map1, map2, map3])
+    }
     
     func test_loadingMapsIndicator_isVisibleWhileLoadingMapsOnSucceed() {
         let (sut, loader) = makeSUT()
@@ -113,7 +113,7 @@ final class MapsDownloaderUIIntegrationTests: XCTestCase {
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: DownloadMapsViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
-        let sut = DownloadMapsComposer.mapsComposedWith(regionLoader: loader, mapLoader: loader)
+        let sut = DownloadMapsComposer.mapsComposedWith(regionLoader: loader, mapLoader: loader, selection: { _ in })
         
         trackForMemoryLeaks(sut, file: file, line: line)
         trackForMemoryLeaks(loader, file: file, line: line)
@@ -121,11 +121,11 @@ final class MapsDownloaderUIIntegrationTests: XCTestCase {
         return (sut, loader)
     }
     
-    func makeMap(name: String) -> Map {
-        Map(name: name, parent: nil, maps: [])
+    func makeMap(name: String) -> Region {
+        Region(name: name, parent: nil, regions: [])
     }
     
-    func assertThat(_ sut: DownloadMapsViewController, isRendering maps: [Map], file: StaticString = #file, line: UInt = #line) {
+    func assertThat(_ sut: DownloadMapsViewController, isRendering maps: [Region], file: StaticString = #file, line: UInt = #line) {
         sut.view.enforceLayoutCycle()
         
         guard sut.numberOfRenderedMapsViews == maps.count else {
@@ -137,7 +137,7 @@ final class MapsDownloaderUIIntegrationTests: XCTestCase {
         }
     }
     
-    func assertThat(_ sut: DownloadMapsViewController, hasViewConfiguredFor map: Map, at index: Int, file: StaticString = #file, line: UInt = #line) {
+    func assertThat(_ sut: DownloadMapsViewController, hasViewConfiguredFor map: Region, at index: Int, file: StaticString = #file, line: UInt = #line) {
         let view = sut.mapView(at: index)
         
         guard let cell = view as? MapTableViewCell, let contentConfig = cell.contentConfiguration as? UIListContentConfiguration else {
@@ -158,7 +158,7 @@ class LoaderSpy: RegionLoader {
         mapsRequests.append(completion)
     }
     
-    func completeMapsLoading(with maps: [Map] = [], at index: Int = 0) {
+    func completeMapsLoading(with maps: [Region] = [], at index: Int = 0) {
         mapsRequests[index](.success(maps))
     }
     
@@ -168,15 +168,12 @@ class LoaderSpy: RegionLoader {
 }
 
 extension LoaderSpy: MapLoader {
-    func load(model: MapsDownloader.Map, progress: @escaping (Progress) -> Void) {
+    func load(region: String, parentRegion: String?, progress: @escaping (Progress) -> Void, completion: @escaping ((any Error)?) -> Void) {
         
     }
     
-    func cancel(model: MapsDownloader.Map) {
-        
+    func cancel(region: String, parentRegion: String?) {
     }
-    
-    
 }
 
 var anyNSError: NSError {

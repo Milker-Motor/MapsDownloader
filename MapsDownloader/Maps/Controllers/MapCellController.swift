@@ -64,8 +64,8 @@ extension MapCellController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(MapTableViewCell.self)
         
+        cell.nameLabel.text = model.name
         cell.state = model.isMapAvailable ? .notRun : .default
-        
         cell.actionButton.addAction(UIAction { [weak self] _ in
             guard let self else { return }
             if self.cell?.state == .downloading {
@@ -74,8 +74,7 @@ extension MapCellController: UITableViewDataSource {
                 self.load()
             }
         }, for: .touchUpInside)
-        
-        cell.nameLabel.text = model.name
+         
         self.cell = cell
         
         return cell

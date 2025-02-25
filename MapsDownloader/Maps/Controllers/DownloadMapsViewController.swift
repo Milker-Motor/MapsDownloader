@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol DownloadMapsViewControllerDelegate {
+public protocol DownloadMapsViewControllerDelegate: AnyObject {
     func didRequestMapsLoad()
 }
 

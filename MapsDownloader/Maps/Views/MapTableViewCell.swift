@@ -18,35 +18,24 @@ public final class MapTableViewCell: UITableViewCell {
     
     var state: State = .default {
         didSet {
+            accessoryType = state == .default ? .disclosureIndicator : .none
+            progressView.isHidden = state != .downloading
+            iconImageView.tintColor = state == .downloaded ? .iconMapDownloaded : .iconMapDefault
+            selectionStyle = state == .default ? .default : .none
+            
             switch state {
             case .default:
-                accessoryType = .disclosureIndicator
-                progressView.isHidden = true
                 actionButton.setImage(nil, for: .normal)
-                iconImageView.tintColor = .iconMapDefault
-                selectionStyle = .default
                 actionButton.isHidden = true
             case .downloading:
-                accessoryType = .none
-                progressView.isHidden = false
                 actionButton.setImage(UIImage(systemName: "stop.circle"), for: .normal)
-                iconImageView.tintColor = .iconMapDefault
-                selectionStyle = .none
                 actionButton.isHidden = false
             case .downloaded:
-                accessoryType = .none
-                progressView.isHidden = true
                 actionButton.setImage(nil, for: .normal)
-                iconImageView.tintColor = .iconMapDownloaded
                 actionButton.isHidden = true
-                selectionStyle = .none
             case .notRun:
-                accessoryType = .none
-                progressView.isHidden = true
                 progressView.progress = 0
                 actionButton.setImage(UIImage(named: "ic_custom_download"), for: .normal)
-                iconImageView.tintColor = .iconMapDefault
-                selectionStyle = .none
                 actionButton.isHidden = false
             }
             layoutIfNeeded()
@@ -136,8 +125,6 @@ public final class MapTableViewCell: UITableViewCell {
         container.addArrangedSubview(actionButton)
         
         backgroundColor = .tableCellBackground
-//        contentView.addSubviewAndPin(container, padding: 6)
-        
         contentView.addSubview(container)
         container.translatesAutoresizingMaskIntoConstraints = false
         

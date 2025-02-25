@@ -32,3 +32,11 @@ extension WeakRefVirtualProxy: MapView where T: MapView {
         object?.display(viewModel)
     }
 }
+
+extension WeakRefVirtualProxy: DownloadMapsViewControllerDelegate where T: DownloadMapsViewControllerDelegate {
+    func didRequestMapsLoad() {
+        object?.didRequestMapsLoad()
+    }
+    
+    
+}

@@ -8,9 +8,9 @@
 import Foundation
 
 public struct Region {
-    let name: String
-    let parent: String?
-    let regions: [Region]
+    public let name: String
+    public let parent: String?
+    public let regions: [Region]
     
     public init(name: String, parent: String?, regions: [Region]) {
         self.name = name

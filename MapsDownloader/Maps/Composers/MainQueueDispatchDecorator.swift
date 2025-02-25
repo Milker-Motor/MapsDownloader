@@ -27,3 +27,23 @@ extension MainQueueDispatchDecorator: RegionLoader where T == RegionLoader {
         }
     }
 }
+
+extension MainQueueDispatchDecorator: MapLoader where T == MapLoader {
+    func cancel(region: String, parentRegion: String?) {
+        decoratee.cancel(region: region, parentRegion: parentRegion
+        )
+    }
+    
+    func load(region: String, parentRegion: String?, progress: @escaping (Progress) -> Void, completion: @escaping ((any Error)?) -> Void) {
+        decoratee.load(region: region, parentRegion: parentRegion) { [weak self] prog in
+            self?.dispatch {
+                progress(prog)
+            }
+        } completion: { [weak self] error in
+            self?.dispatch {
+                completion(error)
+            }
+        }
+
+    }
+}

@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let nc = UINavigationController(
             rootViewController: DownloadMapsComposer.mapsComposedWith(
                 regionLoader: regionLoader,
-                mapLoader: mapLoader,
+                mapLoader: MainQueueDispatchDecorator(decoratee: mapLoader),
                 selection: showMaps
             )
         )

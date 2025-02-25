@@ -46,7 +46,7 @@ extension Array where Element == Region {
 
 extension MapsLoaderPresentationAdapter: MapCellControllerDelegate {
     func didRequestMap(cellModel: MapCellModel, progress: @escaping (Progress) -> Void, completion: @escaping ((any Error)?) -> Void) {
-        let task = mapLoader.load(region: cellModel.name, parentRegion: cellModel.parent, progress: progress, completion: completion)
+        mapLoader.load(region: cellModel.name, parentRegion: cellModel.parent, progress: progress, completion: completion)
     }
     
     func didCancelIMapRequest(model: MapCellModel) {
