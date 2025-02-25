@@ -33,7 +33,7 @@ public final class MapTableViewCell: UITableViewCell {
                 iconImageView.tintColor = .iconMapDefault
                 selectionStyle = .none
             case .downloaded:
-                accessoryType = .disclosureIndicator
+                accessoryType = .none
                 progressView.isHidden = true
                 actionButton.setImage(nil, for: .normal)
                 iconImageView.tintColor = .iconMapDownloaded

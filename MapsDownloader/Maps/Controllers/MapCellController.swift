@@ -8,7 +8,7 @@
 import UIKit
 
 public protocol MapCellControllerDelegate {
-    func didRequestMap(map: Map, progress: @escaping (Progress) -> Void)
+    func didRequestMap(map: Map, progress: @escaping (Progress) -> Void, completion: @escaping(Error?) -> Void)
     func didCancelIMapRequest(map: Map)
 }
 
@@ -27,15 +27,21 @@ public class MapCellController: NSObject {
     }
     
     private func load() {
+        let cell = cell
         cell?.state = .downloading
-        delegate.didRequestMap(map: model) { [weak cell] progress in
+        delegate.didRequestMap(map: model, progress: { [weak self] progress in
+            guard self?.cell == cell else { return }
             DispatchQueue.main.async {
                 cell?.progressView.progress = Float(progress.fractionCompleted)
                 UIView.animate(withDuration: 0.2) {
                     cell?.layoutIfNeeded()
                 }
             }
-        }
+        }, completion: { [weak self] error in
+            guard self?.cell == cell else { return }
+            
+            self?.cell?.state = error == nil ? .downloaded : .notRun
+        })
     }
     
     func cancelLoad() {

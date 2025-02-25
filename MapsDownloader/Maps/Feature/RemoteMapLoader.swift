@@ -11,11 +11,13 @@ import NetworkingService
 private final class DownloadTask {
     let url: URL
     let progress: (Progress) -> Void
+    let completion: (Error?) -> Void
     var task: HTTPClientTask?
     
-    init(url: URL, progress: @escaping (Progress) -> Void, task: HTTPClientTask? = nil) {
+    init(url: URL, progress: @escaping (Progress) -> Void, completion: @escaping (Error?) -> Void, task: HTTPClientTask? = nil) {
         self.url = url
         self.progress = progress
+        self.completion = completion
         self.task = task
     }
 }
@@ -30,9 +32,9 @@ final class RemoteMapLoader: MapLoader {
         URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
     }()
 
-    func load(model: Map, progress: @escaping (Progress) -> Void) {
+    func load(model: Map, progress: @escaping (Progress) -> Void, completion: @escaping (Error?) -> Void) {
         let url = MapEndpoint.get(holder: model.parent, region: model.name).url(baseURL: baseURL)
-        let newTask = DownloadTask(url: url, progress: progress)
+        let newTask = DownloadTask(url: url, progress: progress, completion: completion)
         tasksToDownload.append(newTask)
         if tasksToDownload.count == 1 {
             loadNext(newTask)
@@ -46,6 +48,14 @@ final class RemoteMapLoader: MapLoader {
         guard let downloadTask else { return nil }
         
         let task = httpClient.get(from: downloadTask.url) { [weak self] response in
+            DispatchQueue.main.async {
+                switch response {
+                case .success:
+                    downloadTask.completion(nil)
+                case let .failure(error):
+                    downloadTask.completion(error)
+                }
+            }
             self?.tasksToDownload.removeAll { $0.url == downloadTask.url }
             self?.loadNext(self?.tasksToDownload.first)
         }
