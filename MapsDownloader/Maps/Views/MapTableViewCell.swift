@@ -17,31 +17,7 @@ public final class MapTableViewCell: UITableViewCell {
     }
     
     var onState: ((State) -> Void)?
-//    = { state in
-//        accessoryType = state == .default ? .disclosureIndicator : .none
-//        progressView.isHidden = state != .downloading
-//        iconImageView.tintColor = state == .downloaded ? .iconMapDownloaded : .iconMapDefault
-//        selectionStyle = state == .default ? .default : .none
-//        
-//        switch state {
-//        case .default:
-//            actionButton.setImage(nil, for: .normal)
-//            actionButton.isHidden = true
-//        case .downloading:
-//            actionButton.setImage(UIImage(systemName: "stop.circle"), for: .normal)
-//            actionButton.isHidden = false
-//        case .downloaded:
-//            actionButton.setImage(nil, for: .normal)
-//            actionButton.isHidden = true
-//        case .notRun:
-//            progressView.progress = 0
-//            actionButton.setImage(UIImage(named: "ic_custom_download"), for: .normal)
-//            actionButton.isHidden = false
-//        }
-//        layoutIfNeeded()
-//        //        }
-//    }()
-    
+
     private lazy var iconContainer: UIView = {
         let view = UIView()
         
