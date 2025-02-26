@@ -31,26 +31,32 @@ public class MapCellController: NSObject {
         }
     }
     
+    private var onProgress: ((Progress) -> Void)?
+    
     public init(model: MapCellModel, header: String, delegate: MapCellControllerDelegate, selection: @escaping (MapCellModel) -> Void) {
+        
         self.model = model
         self.header = header
         self.selection = selection
         self.delegate = delegate
         self.state = model.isMapAvailable ? .notRun : .default
+        super.init()
+        
+        self.onProgress = { [weak self] progress in
+            self?.cell?.progressView.progress = Float(progress.fractionCompleted)
+            UIView.animate(withDuration: 0.2) {
+                self?.cell?.layoutIfNeeded()
+            }
+        }
     }
     
     private func load() {
         state = .downloading
-        delegate.didRequestMap(cellModel: model, progress: { [weak self, weak cell] progress in
+        delegate.didRequestMap(cellModel: model, progress: { [weak self] progress in
             DispatchQueue.main.async {
-                guard self?.cell == cell else { return }
-                cell?.progressView.progress = Float(progress.fractionCompleted)
-                UIView.animate(withDuration: 0.2) {
-                    cell?.layoutIfNeeded()
-                }
+                self?.onProgress?(progress)
             }
         }, completion: { [weak self, weak cell] error in
-            guard cell == self?.cell else{ return }
             DispatchQueue.main.async {
                 self?.state = error == nil ? .downloaded : .notRun
             }

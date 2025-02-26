@@ -33,7 +33,7 @@ final class MapViewAdapter: MapView {
                         isMapAvailable: viewModel.isMapAvailable
                     ),
                     header: "EUROPE",
-                    delegate: WeakRefVirtualProxy(mapsAdapter),
+                    delegate: mapsAdapter,
                     selection: { [weak self] _ in self?.selection(viewModel)
                     }
                 )

@@ -39,12 +39,3 @@ extension WeakRefVirtualProxy: DownloadMapsViewControllerDelegate where T: Downl
     }
 }
 
-extension WeakRefVirtualProxy: MapCellControllerDelegate where T: MapCellControllerDelegate {
-    func didRequestMap(cellModel: MapCellModel, progress: @escaping (Progress) -> Void, completion: @escaping ((any Error)?) -> Void) {
-        object?.didRequestMap(cellModel: cellModel, progress: progress, completion: completion)
-    }
-    
-    func didCancelIMapRequest(model: MapCellModel) {
-        object?.didCancelIMapRequest(model: model)
-    }
-}
