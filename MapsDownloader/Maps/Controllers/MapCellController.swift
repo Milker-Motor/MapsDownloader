@@ -56,7 +56,7 @@ public class MapCellController: NSObject {
             DispatchQueue.main.async {
                 self?.onProgress?(progress)
             }
-        }, completion: { [weak self, weak cell] error in
+        }, completion: { [weak self] error in
             DispatchQueue.main.async {
                 self?.state = error == nil ? .downloaded : .notRun
             }

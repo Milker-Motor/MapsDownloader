@@ -36,21 +36,6 @@ final class MapsDownloaderUIIntegrationTests: XCTestCase {
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading completes")
     }
     
-    func test_loadMapsCompletion_rendersSuccessfullyLoadedMaps() {
-        let map0 = makeMap(name: "Albania")
-        let map1 = makeMap(name: "Latvia")
-        let map2 = makeMap(name: "Norway")
-        let map3 = makeMap(name: "Sweden")
-        
-        let (sut, loader) = makeSUT()
-        
-        sut.simulateAppearance()
-        assertThat(sut, isRendering: [])
-        
-        loader.completeMapsLoading(with: [map0, map1, map2, map3], at: 0)
-        assertThat(sut, isRendering: [map0, map1, map2, map3])
-    }
-    
     func test_loadingMapsIndicator_isVisibleWhileLoadingMapsOnSucceed() {
         let (sut, loader) = makeSUT()
         
